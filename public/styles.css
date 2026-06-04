@@ -2095,7 +2095,7 @@ body.mobile-ui .profile-actions > * {
 .row-grid {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(210px, 250px);
+  grid-auto-columns: minmax(230px, 270px);
   gap: 16px;
   overflow-x: auto;
   overflow-y: visible;
@@ -2175,6 +2175,111 @@ body.mobile-ui .profile-actions > * {
 .movie-card:hover .card-poster-wrap {
   border-color: rgba(229,9,20,0.3);
   box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(229,9,20,0.18);
+}
+
+/* ── Picture-in-Picture ── */
+.pip-player {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 320px;
+  background: #0d0d18;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 16px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(229,9,20,0.2);
+  z-index: 999;
+  transition: transform 0.3s var(--ease), opacity 0.3s;
+  cursor: move;
+}
+.pip-player.hidden { display: none; }
+.pip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.pip-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+.pip-controls { display: flex; gap: 6px; }
+.pip-btn {
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.pip-btn:hover { background: rgba(255,255,255,0.18); }
+.pip-frame-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+}
+.pip-frame-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+body.mobile-ui .pip-player { width: 240px; bottom: 80px; right: 12px; }
+
+/* ── Infinite scroll ── */
+.infinite-sentinel { padding: 32px 0; }
+.infinite-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.9rem;
+}
+.infinite-spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255,255,255,0.15);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── New episode badge ── */
+.card-new-episode-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  z-index: 3;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(229,9,20,0.5);
+  animation: newEpPulse 2s ease-in-out infinite;
+}
+@keyframes newEpPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 /* ── Watch progress bar on cards ── */

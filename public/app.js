@@ -3270,7 +3270,7 @@ async function viewFilmes() {
     }
 
     async function renderFilteredMovies(page = 1) {
-      resultsEl.innerHTML = renderSpinner();
+      if (page === 1) resultsEl.innerHTML = renderSpinner();
 
       try {
         const response = await fetchJson(`/api/discover?${buildFilmDiscoverParams(page).toString()}`);
@@ -3278,41 +3278,43 @@ async function viewFilmes() {
         paginationState.totalPages = Math.max(1, Number(response.total_pages) || 1);
         paginationState.totalResults = Math.max(0, Number(response.total_results) || 0);
 
-        resultsEl.innerHTML = "";
-        if (!response.results?.length) {
+        if (page === 1) resultsEl.innerHTML = "";
+        if (!response.results?.length && page === 1) {
           resultsEl.innerHTML = `<div class="empty-state">Nenhum filme encontrado com estes filtros.</div>`;
           return;
         }
 
-        const summary = document.createElement("div");
-        summary.className = "films-results-head";
-        summary.innerHTML = `
-          <div class="films-results-count">${paginationState.totalResults.toLocaleString("pt-PT")} resultados</div>
-          ${renderFilmsPagination()}
-        `;
-        resultsEl.appendChild(summary);
-
-        const grid = document.createElement("div");
-        grid.className = "genre-grid catalog-section";
-        resultsEl.appendChild(grid);
+        if (page === 1) {
+          resultsEl.innerHTML = "";
+          const summary = document.createElement("div");
+          summary.className = "films-results-head";
+          summary.innerHTML = `<div class="films-results-count">${paginationState.totalResults.toLocaleString("pt-PT")} resultados</div>`;
+          resultsEl.appendChild(summary);
+          const grid = document.createElement("div");
+          grid.className = "genre-grid catalog-section";
+          grid.id = "filmsGrid";
+          resultsEl.appendChild(grid);
+        }
+        const grid = document.getElementById("filmsGrid") || resultsEl.querySelector(".genre-grid");
         renderMovieCards(grid, response.results);
         initSectionAnimations();
 
-        if (paginationState.totalPages > 1) {
-          const bottomPagination = document.createElement("div");
-          bottomPagination.innerHTML = renderFilmsPagination();
-          resultsEl.appendChild(bottomPagination.firstElementChild);
-        }
-
-        resultsEl.querySelectorAll("[data-films-page]").forEach((button) => {
-          button.addEventListener("click", () => {
-            const direction = button.dataset.filmsPage;
-            const nextPage = direction === "prev" ? paginationState.page - 1 : paginationState.page + 1;
-            if (nextPage >= 1 && nextPage <= paginationState.totalPages) {
-              renderFilteredMovies(nextPage);
+        // Infinite scroll sentinel
+        const oldSentinel = resultsEl.querySelector(".infinite-sentinel");
+        if (oldSentinel) oldSentinel.remove();
+        if (paginationState.page < paginationState.totalPages) {
+          const sentinel = document.createElement("div");
+          sentinel.className = "infinite-sentinel";
+          sentinel.innerHTML = `<div class="infinite-loading"><span class="infinite-spinner"></span></div>`;
+          resultsEl.appendChild(sentinel);
+          const obs = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+              obs.disconnect();
+              renderFilteredMovies(paginationState.page + 1);
             }
-          });
-        });
+          }, { rootMargin: "200px" });
+          obs.observe(sentinel);
+        }
       } catch (err) {
         resultsEl.innerHTML = errorState(err.message);
       }
@@ -3401,7 +3403,7 @@ async function viewSeries() {
     }
 
     async function renderFilteredSeries(page = 1) {
-      resultsEl.innerHTML = renderSpinner();
+      if (page === 1) resultsEl.innerHTML = renderSpinner();
 
       try {
         const response = await fetchJson(`/api/discover?${buildSeriesDiscoverParams(page).toString()}`);
@@ -3409,41 +3411,43 @@ async function viewSeries() {
         paginationState.totalPages = Math.max(1, Number(response.total_pages) || 1);
         paginationState.totalResults = Math.max(0, Number(response.total_results) || 0);
 
-        resultsEl.innerHTML = "";
+        if (page === 1) resultsEl.innerHTML = "";
         if (!response.results?.length) {
           resultsEl.innerHTML = `<div class="empty-state">Nenhuma série encontrada com estes filtros.</div>`;
           return;
         }
 
-        const summary = document.createElement("div");
-        summary.className = "films-results-head";
-        summary.innerHTML = `
-          <div class="films-results-count">${paginationState.totalResults.toLocaleString("pt-PT")} resultados</div>
-          ${renderSeriesPagination()}
-        `;
-        resultsEl.appendChild(summary);
-
-        const grid = document.createElement("div");
-        grid.className = "genre-grid catalog-section";
-        resultsEl.appendChild(grid);
+        if (page === 1) {
+          resultsEl.innerHTML = "";
+          const summary = document.createElement("div");
+          summary.className = "films-results-head";
+          summary.innerHTML = `<div class="films-results-count">${paginationState.totalResults.toLocaleString("pt-PT")} resultados</div>`;
+          resultsEl.appendChild(summary);
+          const grid = document.createElement("div");
+          grid.className = "genre-grid catalog-section";
+          grid.id = "seriesGrid";
+          resultsEl.appendChild(grid);
+        }
+        const grid = document.getElementById("seriesGrid") || resultsEl.querySelector(".genre-grid");
         renderMovieCards(grid, response.results);
         initSectionAnimations();
 
-        if (paginationState.totalPages > 1) {
-          const bottomPagination = document.createElement("div");
-          bottomPagination.innerHTML = renderSeriesPagination();
-          resultsEl.appendChild(bottomPagination.firstElementChild);
-        }
-
-        resultsEl.querySelectorAll("[data-series-page]").forEach((button) => {
-          button.addEventListener("click", () => {
-            const direction = button.dataset.seriesPage;
-            const nextPage = direction === "prev" ? paginationState.page - 1 : paginationState.page + 1;
-            if (nextPage >= 1 && nextPage <= paginationState.totalPages) {
-              renderFilteredSeries(nextPage);
+        // Infinite scroll sentinel
+        const oldSentinel = resultsEl.querySelector(".infinite-sentinel");
+        if (oldSentinel) oldSentinel.remove();
+        if (paginationState.page < paginationState.totalPages) {
+          const sentinel = document.createElement("div");
+          sentinel.className = "infinite-sentinel";
+          sentinel.innerHTML = `<div class="infinite-loading"><span class="infinite-spinner"></span></div>`;
+          resultsEl.appendChild(sentinel);
+          const obs = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+              obs.disconnect();
+              renderFilteredSeries(paginationState.page + 1);
             }
-          });
-        });
+          }, { rootMargin: "200px" });
+          obs.observe(sentinel);
+        }
       } catch (err) {
         resultsEl.innerHTML = errorState(err.message);
       }
@@ -5053,12 +5057,28 @@ function renderMovieCards(container, movies, options = {}) {
     const progressEntry = continueWatchingCache.find((e) => e.movie?.id === movie.id);
     const progressPct = progressEntry?.progressPercent || 0;
 
+    // New episode badge for TV series in watchlist
+    const isTV = getMediaType(movie) === "tv";
+    const inWL = isInWatchlist(movie);
+    const hasNewEpisode = isTV && inWL && (() => {
+      if (!progressEntry) return false;
+      const lastSeason = Number(progressEntry.season || 0);
+      const lastEp = Number(progressEntry.episode || 0);
+      const totalSeasons = Number(movie.number_of_seasons || 0);
+      const totalEps = Number(movie.number_of_episodes || 0);
+      // Has more content than what was last watched
+      if (totalSeasons > lastSeason) return true;
+      if (totalSeasons === lastSeason && totalEps > lastEp) return true;
+      return false;
+    })();
+
     card.innerHTML = `
       <div class="card-poster-wrap">
         <img src="${poster}" alt="${escapeHtml(movie.title)}" loading="lazy">
         ${options.showRanking && movie.rank ? `<div class="card-rank-badge">#${movie.rank}</div>` : ""}
         ${!options.showRanking && movie.chronological_index ? `<div class="card-rank-badge card-rank-badge--timeline">${movie.chronological_index}</div>` : ""}
         ${progressPct > 2 && progressPct < 95 ? `<div class="card-progress-bar"><div class="card-progress-fill" style="width:${progressPct}%"></div></div>` : ""}
+        ${hasNewEpisode ? `<div class="card-new-episode-badge">Novo ep.</div>` : ""}
         <div class="card-quick-actions">
           <button class="card-fav${fav ? " is-fav" : ""}" data-id="${movie.id}" data-media-type="${getMediaType(movie)}" data-media-key="${getMediaKey(movie)}" type="button"
             aria-label="${fav ? "Remover dos favoritos" : "Adicionar aos favoritos"}">
