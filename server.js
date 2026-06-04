@@ -2714,6 +2714,6 @@ const server = http.createServer(async (req, res) => {
   serveStaticFile(requestUrl, res);
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
   console.log(`MimiFlix em http://localhost:${PORT}`);
 });
