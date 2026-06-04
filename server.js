@@ -1326,15 +1326,39 @@ async function handlePersonDetails(requestUrl, personId, res) {
 }
 
 function pickFeaturedMovie(sections) {
-  const sectionWithMovies = sections.find((section) => section.movies.length > 0);
+  const list = pickFeaturedMovies(sections, 1);
+  return list.length ? list[0] : null;
+}
 
-  if (!sectionWithMovies) {
-    return null;
+function pickFeaturedMovies(sections, count = 5) {
+  const seen = new Set();
+  const pool = [];
+  const heroSectionIds = new Set(["popular", "now-playing", "series-popular", "series-airing"]);
+  const heroSections = sections.filter((s) => heroSectionIds.has(s.id));
+  const sourceSections = heroSections.length ? heroSections : sections.slice(0, 2);
+  // Only allow these languages in the hero
+  const allowedLanguages = new Set(["en", "pt"]);
+
+  for (const section of sourceSections) {
+    for (const movie of section.movies) {
+      if (!movie.backdrop_path) continue;
+      if (seen.has(movie.id)) continue;
+      if (typeof movie.vote_count === "number" && movie.vote_count < 500) continue;
+      if (typeof movie.vote_average === "number" && movie.vote_average < 5.5) continue;
+      // Filter out non-English/Portuguese movies
+      const lang = String(movie.original_language || "").toLowerCase();
+      if (!allowedLanguages.has(lang)) continue;
+      seen.add(movie.id);
+      pool.push(movie);
+    }
   }
-
-  const withBackdrop = sectionWithMovies.movies.filter((movie) => movie.backdrop_path);
-  const pool = withBackdrop.length ? withBackdrop : sectionWithMovies.movies;
-  return pool[Math.floor(Math.random() * pool.length)];
+  pool.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+  const top = pool.slice(0, Math.min(count * 3, pool.length));
+  for (let i = top.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [top[i], top[j]] = [top[j], top[i]];
+  }
+  return top.slice(0, count);
 }
 
 function ensureDirectory(directoryPath) {
@@ -2068,6 +2092,7 @@ async function handleHomepage(requestUrl, res) {
 
     sendJson(res, 200, {
       featured: pickFeaturedMovie(sections),
+      featuredList: pickFeaturedMovies(sections, 5),
       sections
     });
   } catch (error) {
