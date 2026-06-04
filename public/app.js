@@ -3125,6 +3125,7 @@ async function ensureCatalog() {
   const lang = encodeURIComponent(getLanguage());
   catalogCache = await fetchJson(`/api/homepage?language=${lang}`);
   if (catalogCache.featured) { featuredMovie = catalogCache.featured; renderHero(featuredMovie); }
+  if (catalogCache.featuredList?.length) { startHeroRotation(catalogCache.featuredList); }
   return catalogCache;
 }
 
@@ -4858,12 +4859,33 @@ async function viewPesquisa() {
 }
 
 // ─── Hero ─────────────────────────────────────────────────────
-function renderHero(movie) {
-  const heroContent = document.querySelector(".hero-content");
-  if (heroContent) heroContent.classList.add("is-refreshing");
-  heroBackdrop.style.backgroundImage = movie.backdrop_path
+const heroBackdropNext = document.getElementById("heroBackdropNext");
+let heroTransitionTimer = null;
+
+function renderHero(movie, animate = false) {
+  const bgUrl = movie.backdrop_path
     ? `url("${IMAGE_BASE_URL}${movie.backdrop_path}")`
     : "linear-gradient(180deg, #111118, #06060a)";
+
+  if (animate && heroBackdropNext) {
+    // Crossfade: load new image on next layer, fade it in, then swap
+    heroBackdropNext.style.backgroundImage = bgUrl;
+    heroBackdropNext.classList.add("is-fading-in");
+
+    if (heroTransitionTimer) clearTimeout(heroTransitionTimer);
+    heroTransitionTimer = setTimeout(() => {
+      heroBackdrop.style.backgroundImage = bgUrl;
+      heroBackdropNext.classList.remove("is-fading-in");
+      heroBackdropNext.style.backgroundImage = "";
+    }, 950);
+  } else {
+    heroBackdrop.style.backgroundImage = bgUrl;
+  }
+
+  // Fade out content, update, fade in
+  const heroContent = document.querySelector(".hero-content");
+  if (heroContent && animate) heroContent.classList.add("is-refreshing");
+
   heroTitle.textContent = movie.title;
   heroOverview.textContent = movie.overview || "Sem sinopse disponível.";
   heroMeta.innerHTML = buildMetaHtml(movie);
@@ -4882,12 +4904,8 @@ function renderHero(movie) {
   // Poster thumbnail
   const heroPoster = document.getElementById("heroPoster");
   if (heroPoster) {
-    if (movie.poster_path) {
-      heroPoster.src = `${POSTER_BASE_URL}${movie.poster_path}`;
-      heroPoster.alt = movie.title || "";
-    } else {
-      heroPoster.src = "";
-    }
+    heroPoster.src = movie.poster_path ? `${POSTER_BASE_URL}${movie.poster_path}` : "";
+    heroPoster.alt = movie.title || "";
   }
 
   // Play button label
@@ -4896,8 +4914,67 @@ function renderHero(movie) {
   if (playBtn) {
     playBtn.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>${isTV ? "Ver episódio" : "Ver agora"}`;
   }
-  const hc = document.querySelector(".hero-content");
-  if (hc) { hc.classList.remove("is-refreshing"); }
+
+  if (heroContent && animate) {
+    requestAnimationFrame(() => heroContent.classList.remove("is-refreshing"));
+  }
+}
+
+// ─── Hero Rotation ────────────────────────────────────────────
+let heroRotationInterval = null;
+let heroRotationIndex = 0;
+let heroRotationList = [];
+
+function startHeroRotation(movies) {
+  if (!movies?.length) return;
+  stopHeroRotation();
+  heroRotationList = movies;
+  heroRotationIndex = 0;
+
+  // Update dots count
+  const dotsContainer = document.querySelector(".hero-dots");
+  if (dotsContainer) {
+    dotsContainer.innerHTML = movies.map((_, i) =>
+      `<button class="hero-dot${i === 0 ? " is-active" : ""}" type="button" data-hero-index="${i}"></button>`
+    ).join("");
+    dotsContainer.querySelectorAll("[data-hero-index]").forEach((dot) => {
+      dot.addEventListener("click", (e) => {
+        e.stopPropagation();
+        goToHeroSlide(Number(dot.dataset.heroIndex));
+        resetHeroRotationTimer();
+      });
+    });
+  }
+
+  heroRotationInterval = setInterval(() => {
+    heroRotationIndex = (heroRotationIndex + 1) % heroRotationList.length;
+    goToHeroSlide(heroRotationIndex);
+  }, 6000);
+}
+
+function stopHeroRotation() {
+  if (heroRotationInterval) { clearInterval(heroRotationInterval); heroRotationInterval = null; }
+}
+
+function resetHeroRotationTimer() {
+  stopHeroRotation();
+  heroRotationInterval = setInterval(() => {
+    heroRotationIndex = (heroRotationIndex + 1) % heroRotationList.length;
+    goToHeroSlide(heroRotationIndex);
+  }, 6000);
+}
+
+function goToHeroSlide(index) {
+  if (!heroRotationList.length) return;
+  heroRotationIndex = index;
+  const movie = heroRotationList[index];
+  featuredMovie = movie;
+  renderHero(movie, true);
+
+  // Update active dot
+  document.querySelectorAll(".hero-dot").forEach((dot, i) => {
+    dot.classList.toggle("is-active", i === index);
+  });
 }
 
 // Platform hubs visibility

@@ -712,11 +712,22 @@ body.mobile-ui .site-footer { display: none; }
 .hero-backdrop {
   background-size: cover;
   background-position: center 15%;
-  transition: background-image 0.9s ease;
   filter: brightness(0.9);
+  transition: opacity 0.9s ease;
+}
+
+.hero-backdrop--next {
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.9s ease;
+}
+
+.hero-backdrop--next.is-fading-in {
+  opacity: 1;
 }
 
 .hero-overlay {
+  z-index: 2;
   background:
     linear-gradient(100deg, rgba(6,6,10,0.98) 0%, rgba(6,6,10,0.8) 35%, rgba(6,6,10,0.18) 65%, transparent 100%),
     linear-gradient(0deg, rgba(6,6,10,1) 0%, rgba(6,6,10,0.6) 18%, transparent 50%);
