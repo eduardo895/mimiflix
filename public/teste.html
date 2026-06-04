@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>teste</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #06060a;
+      --surface: rgba(14, 14, 24, 0.92);
+      --surface-soft: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f4f4f5;
+      --text-dim: #9ca3af;
+      --accent: #e50914;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Plus Jakarta Sans", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(229, 9, 20, 0.18), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(82, 0, 164, 0.16), transparent 30%),
+        linear-gradient(180deg, #0b0b12 0%, #050508 100%);
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .link-btn,
+    .action-btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 340px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .poster {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 18px;
+      object-fit: cover;
+      background: #11131b;
+      border: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 0.95;
+      margin-bottom: 14px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .description {
+      color: var(--text-dim);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      max-width: 68ch;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .primary-btn {
+      background: var(--accent);
+      border-color: rgba(229, 9, 20, 0.4);
+    }
+
+    .status,
+    .formats {
+      margin-top: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .status strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .status p,
+    .formats p {
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .player-shell {
+      margin-top: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .player-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .player-header h2 {
+      font-size: 1.15rem;
+    }
+
+    video {
+      width: 100%;
+      display: block;
+      background: #000;
+      border-radius: 16px;
+      aspect-ratio: 16 / 9;
+    }
+
+    .format-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .format-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .format-item small {
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">Pagina <span>teste</span></div>
+      <a class="link-btn" href="/">Voltar ao inicio</a>
+    </header>
+
+    <section class="hero">
+      <img
+        id="videoThumbnail"
+        class="poster"
+        src="https://pix-cdn77.teste.com/c6251/videos/202510/05/25025605/original/0199b3ef-3666-78ac-b452-a70c1c327309.jpg/plain/rs:fit:320:180?hash=lBr73kHdcVNi4TzHHXN_wo-4zLk=&validto=1777945403"
+        alt="Thumbnail do video teste"
+      >
+
+      <div>
+        <div class="eyebrow">Video separado</div>
+        <h1 id="videoTitle">teste</h1>
+        <div class="meta">
+          <div class="pill" id="videoDuration">15:03</div>
+          <div class="pill" id="videoViews">130K visualizacoes</div>
+          <div class="pill">Streaming por /api/download</div>
+        </div>
+        <p class="description">
+          Esta pagina usa os dados que recebeste da pesquisa, resolve o stream por <code>/api/download</code> e espera automaticamente ate o ficheiro ficar disponivel.
+        </p>
+        <div class="actions">
+          <button id="loadVideoBtn" class="action-btn primary-btn" type="button">Carregar video</button>
+          <a id="sourceLink" class="link-btn" target="_blank" rel="noreferrer" href="https://www.teste.com/view_video.php?viewkey=68e230c5cae8d">Abrir pagina original</a>
+        </div>
+        <div class="status" id="statusBox">
+          <strong>Pronto a carregar</strong>
+          <p id="statusText">Clica em "Carregar video" para pedir o stream e mostrar o player.</p>
+        </div>
+        <div class="formats" id="formatsBox" hidden>
+          <strong>Formatos encontrados</strong>
+          <ul class="format-list" id="formatList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="player-shell">
+      <div class="player-header">
+        <h2>Player</h2>
+        <small id="playerSourceLabel">Sem stream carregado</small>
+      </div>
+      <video id="videoPlayer" controls playsinline preload="metadata" poster="https://pix-cdn77.teste.com/c6251/videos/202510/05/25025605/original/0199b3ef-3666-78ac-b452-a70c1c327309.jpg/plain/rs:fit:320:180?hash=lBr73kHdcVNi4TzHHXN_wo-4zLk=&validto=1777945403"></video>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js"></script>
+  <script src="teste.js"></script>
+</body>
+</html>

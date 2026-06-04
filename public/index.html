@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MimiFlix</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Intro splash -->
+  <div id="introSplash" class="intro-splash">
+    <div class="intro-logo">
+      <span class="intro-letter" style="--i:0">M</span><span class="intro-letter" style="--i:1">i</span><span class="intro-letter" style="--i:2">m</span><span class="intro-letter" style="--i:3">i</span><span class="intro-letter" style="--i:4">F</span><span class="intro-letter" style="--i:5">l</span><span class="intro-letter" style="--i:6">i</span><span class="intro-letter" style="--i:7">x</span>
+    </div>
+    <div class="intro-tagline">O teu cinema em casa</div>
+  </div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#/">MimiFlix</a>
+
+      <nav class="topbar-nav" aria-label="Navegação principal">
+        <a class="nav-link active" href="#/" data-route="/">Início</a>
+        <a class="nav-link" href="#/filmes" data-route="/filmes">Filmes</a>
+        <a class="nav-link" href="#/series" data-route="/series">Séries</a>
+        <a class="nav-link" href="#/desporto" data-route="/desporto">Ao vivo</a>
+        <a class="nav-link" href="#/favoritos" data-route="/favoritos">Favoritos</a>
+        <div class="nav-more-wrap">
+          <button class="nav-link nav-more-btn" type="button" aria-expanded="false" aria-haspopup="true">
+            Mais
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="nav-more-dropdown" role="menu">
+            <a class="nav-more-item" href="#/watchlist" data-route="/watchlist">Watchlist</a>
+            <a class="nav-more-item" href="#/historico" data-route="/historico">Histórico</a>
+            <a class="nav-more-item" href="#/mood" data-route="/mood">Mood</a>
+            <a class="nav-more-item" href="#/listas" data-route="/listas">Listas</a>
+            <a class="nav-more-item" href="#/estreias" data-route="/estreias">Estreias</a>
+            <a class="nav-more-item" href="#/colecoes" data-route="/colecoes">Coleções</a>
+            <div class="nav-more-divider"></div>
+            <a id="profileNavLink" class="nav-more-item hidden" href="#/perfil" data-route="/perfil">Perfil</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="topbar-right">
+        <button id="searchToggleBtn" class="topbar-icon-btn" type="button" aria-label="Pesquisar">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
+        </button>
+        <div class="notifications-wrap">
+          <button id="notificationsBtn" class="notifications-btn topbar-icon-btn" type="button" aria-label="Notificações" title="Notificações">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7-6V11a7 7 0 1 0-14 0v5l-2 2v1h18v-1l-2-2Z"/></svg>
+            <span id="notificationsBadge" class="notifications-badge hidden">0</span>
+          </button>
+          <div id="notificationsPanel" class="notifications-panel hidden" aria-hidden="true"></div>
+        </div>
+        <button id="themeToggleBtn" class="topbar-icon-btn theme-toggle-btn" type="button" title="Alterar tema" aria-label="Alterar tema">☾</button>
+        <select id="languageSelect" class="lang-select" title="Idioma TMDB">
+          <option value="pt-PT">PT</option>
+          <option value="pt-BR">PT-BR</option>
+          <option value="en-US">EN</option>
+          <option value="es-ES">ES</option>
+          <option value="fr-FR">FR</option>
+          <option value="de-DE">DE</option>
+          <option value="it-IT">IT</option>
+          <option value="ja-JP">JA</option>
+        </select>
+        <div id="userArea" class="user-area">
+          <button id="loginBtn" class="login-btn" type="button">Entrar</button>
+          <div id="userPill" class="user-pill hidden">
+            <div id="userAvatar" class="user-avatar"></div>
+            <span id="userEmail" class="user-email"></span>
+            <button id="logoutBtn" class="logout-btn" type="button" title="Sair">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+  <div id="searchOverlay" class="search-overlay hidden" aria-hidden="true">
+    <div class="search-overlay-inner">
+      <label class="search-overlay-box">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
+        <input id="searchInput" type="text" placeholder="Pesquisar filmes e séries..." autocomplete="off">
+      </label>
+      <button id="searchCloseBtn" class="search-overlay-close" type="button" aria-label="Fechar pesquisa">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div id="searchSuggestions" class="search-suggestions hidden"></div>
+    </div>
+  </div>
+
+    <section id="hero" class="hero">
+      <div id="heroBackdrop" class="hero-backdrop"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-platform-badge">
+          <span class="hero-platform-text">MimiFlix</span>
+          <span class="hero-platform-label">Destaque</span>
+        </div>
+        <h1 id="heroTitle"></h1>
+        <div id="heroMeta" class="hero-meta"></div>
+        <p id="heroOverview" class="hero-overview"></p>
+        <div id="heroGenres" class="hero-genres"></div>
+        <div class="hero-actions">
+          <button id="heroPlayBtn" class="hero-play-btn" type="button">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Ver agora
+          </button>
+          <button id="heroInfoBtn" class="hero-watchlist-btn" type="button">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Watchlist
+          </button>
+        </div>
+      </div>
+      <!-- Dot indicators -->
+      <div class="hero-dots" aria-hidden="true">
+        <button class="hero-dot is-active" type="button"></button>
+        <button class="hero-dot" type="button"></button>
+        <button class="hero-dot" type="button"></button>
+        <button class="hero-dot" type="button"></button>
+        <button class="hero-dot" type="button"></button>
+      </div>
+
+      <div class="hero-aside">
+        <button id="heroMuteBtn" class="hero-mute-btn" type="button" aria-label="Ativar/desativar som">
+          <svg id="heroVolumeIcon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+        </button>
+        <img id="heroPoster" class="hero-poster" alt="" loading="lazy">
+      </div>
+    </section>
+
+
+    <main id="appContent" class="content"></main>
+
+    <nav class="mobile-bottom-nav" aria-label="Navegação móvel">
+      <a class="mobile-bottom-link" href="#/" data-route="/">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Início</span>
+      </a>
+      <a class="mobile-bottom-link" href="#/pesquisa" data-route="/pesquisa">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
+        <span>Pesquisa</span>
+      </a>
+      <a class="mobile-bottom-link" href="#/favoritos" data-route="/favoritos">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span>Favoritos</span>
+      </a>
+      <a class="mobile-bottom-link" href="#/colecoes" data-route="/colecoes">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span>Coleções</span>
+      </a>
+      <a class="mobile-bottom-link" href="#/perfil" data-route="/perfil">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Perfil</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Auth Modal -->
+  <div id="authModal" class="modal hidden" aria-hidden="true">
+    <div class="auth-card">
+      <button id="authCloseBtn" class="close-btn" type="button" aria-label="Fechar">×</button>
+      <div class="auth-logo">MimiFlix</div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Entrar</button>
+        <button class="auth-tab" data-tab="register">Criar conta</button>
+      </div>
+
+      <form id="authForm" class="auth-form" novalidate>
+        <div class="auth-field">
+          <label for="authEmail">Email</label>
+          <input id="authEmail" type="email" placeholder="o@teu.email" autocomplete="email" required>
+        </div>
+        <div class="auth-field">
+          <label for="authPassword">Password</label>
+          <input id="authPassword" type="password" placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+        <p id="authError" class="auth-error hidden"></p>
+        <button id="authSubmit" class="accent-btn auth-submit" type="submit">Entrar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div id="detailModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card detail-modal-card">
+      <button id="detailCloseBtn" class="close-btn" type="button" aria-label="Fechar">×</button>
+      <!-- Mobile-only bookmark button (top-right) -->
+      <button id="detailMobileBookmarkBtn" class="detail-mobile-bookmark-btn" type="button" aria-label="Watchlist">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      </button>
+      <section class="detail-hero-shell">
+        <div id="detailBackdrop" class="detail-backdrop"></div>
+        <div class="detail-hero-inner">
+          <div class="detail-poster-wrap">
+            <img id="detailPoster" class="detail-poster" alt="">
+          </div>
+          <div class="detail-copy">
+            <h2 id="detailTitle"></h2>
+            <div id="detailMeta" class="detail-meta"></div>
+            <p id="detailOverview" class="detail-overview"></p>
+            <div class="detail-actions">
+              <button id="detailPlayBtn" class="accent-btn" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                Ver agora
+              </button>
+              <button id="detailTrailerBtn" class="secondary-btn hidden" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                Trailer
+              </button>
+              <button id="detailFavBtn" class="fav-modal-btn" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                Favorito
+              </button>
+              <button id="detailWatchlistBtn" class="fav-modal-btn" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Watchlist
+              </button>
+              <button id="detailListBtn" class="fav-modal-btn" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                Lista
+              </button>
+              <button id="detailCloseFooterBtn" class="secondary-btn" type="button">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Mobile-only: title, meta, genres, storyline -->
+      <div id="detailMobileHeader" class="detail-mobile-header"></div>
+      <section class="detail-body-grid">
+        <div class="detail-body-main">
+          <div id="detailSeriesPanel" class="detail-series-panel"></div>
+          <div id="detailPremium" class="detail-premium"></div>
+          <div id="detailPersonalReview" class="detail-personal-review"></div>
+          <div id="detailSimilar" class="detail-similar"></div>
+        </div>
+        <aside class="detail-body-sidebar">
+          <div id="detailFacts" class="detail-facts"></div>
+        </aside>
+      </section>
+      <div id="detailAvailability" class="detail-availability detail-availability--fullwidth"></div>
+      <!-- Mobile-only: sticky Watch Now bar -->
+      <div class="detail-mobile-watchnow-bar">
+        <button id="detailMobileWatchBtn" class="detail-mobile-watchnow-btn" type="button">
+          Ver agora
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Player Modal -->
+  <div id="playerOverlay" class="modal hidden" aria-hidden="true">
+    <div id="playerCard" class="player-card">
+
+      <!-- Slim top bar -->
+      <div class="player-topbar">
+        <div class="player-topbar-left">
+          <button id="playerCloseBtn" class="player-close-btn" type="button" aria-label="Fechar">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <h2 id="playerTitle" class="player-title">Player</h2>
+        </div>
+        <div id="playerProviderTabs" class="player-provider-tabs hidden"></div>
+        <div class="player-topbar-right">
+          <div class="player-source-wrap">
+            <button id="playerSourceBtn" class="player-source-btn" type="button" title="Mudar fonte de vídeo" aria-label="Mudar fonte">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+              Fonte
+            </button>
+            <div id="playerSourceDropdown" class="player-source-dropdown hidden"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Body: video + sidebar -->
+      <div class="player-body">
+        <div id="playerFrameWrap" class="player-frame-wrap">
+          <iframe id="playerFrame" src="" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div id="subtitleOverlay" class="subtitle-overlay hidden">
+            <p id="subtitleText" class="subtitle-text"></p>
+          </div>
+        </div>
+        <aside id="playerContext" class="player-context hidden"></aside>
+      </div>
+
+    </div>
+  </div>
+
+  <input id="languageInput" type="hidden" value="pt-PT">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

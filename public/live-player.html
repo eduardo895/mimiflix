@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Player</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #05070b;
+      --surface: #0e1118;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f3f4f6;
+      --text-dim: #9ca3af;
+      --accent: #e50914;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .shell {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(14, 17, 24, 0.96) 0%, rgba(14, 17, 24, 0.86) 100%);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 6px;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    h1 {
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+
+    p {
+      margin-top: 6px;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .player-wrap {
+      padding: 16px;
+      display: grid;
+      place-items: center;
+    }
+
+    video {
+      width: min(100%, 1400px);
+      max-height: calc(100vh - 140px);
+      border-radius: 20px;
+      background: #000;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    .error {
+      width: min(100%, 900px);
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(229, 9, 20, 0.25);
+      background: rgba(229, 9, 20, 0.08);
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <span class="eyebrow">MimiFlix Live</span>
+    <h1 id="title">A carregar stream...</h1>
+    <p>Se o stream falhar, fecha e tenta outra fonte do mesmo evento.</p>
+  </header>
+
+  <main class="player-wrap">
+    <video id="video" controls autoplay playsinline></video>
+    <div id="error" class="error" hidden></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const source = params.get("src") || "";
+    const title = params.get("title") || "Stream ao vivo";
+    const video = document.getElementById("video");
+    const errorBox = document.getElementById("error");
+
+    document.title = title;
+    document.getElementById("title").textContent = title;
+
+    function showError(message) {
+      video.hidden = true;
+      errorBox.hidden = false;
+      errorBox.textContent = message;
+    }
+
+    if (!source) {
+      showError("Não foi encontrado nenhum URL de stream.");
+    } else if (window.Hls && window.Hls.isSupported()) {
+      const hls = new window.Hls({
+        enableWorker: true,
+        lowLatencyMode: true
+      });
+      hls.loadSource(source);
+      hls.attachMedia(video);
+      hls.on(window.Hls.Events.ERROR, (_, data) => {
+        if (data && data.fatal) {
+          showError("O stream não respondeu como esperado. Tenta outra fonte.");
+          hls.destroy();
+        }
+      });
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = source;
+    } else {
+      showError("Este browser não suporta reprodução HLS.");
+    }
+  </script>
+</body>
+</html>

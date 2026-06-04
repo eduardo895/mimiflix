@@ -1,0 +1,15 @@
+{
+  "name": "mimiflix",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Catalogo de filmes estilo streaming com TMDB e player por TMDB ID",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "supabase": "^2.98.0"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.7.10"
+  }
+}

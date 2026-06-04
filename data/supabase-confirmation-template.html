@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmar conta MimiFlix</title>
+</head>
+<body style="margin:0;padding:0;background-color:#06060a;background-image:radial-gradient(circle at top right, rgba(229, 9, 20, 0.18), transparent 28%),radial-gradient(circle at bottom left, rgba(90, 0, 160, 0.12), transparent 30%),linear-gradient(180deg, #0b0b12 0%, #050508 100%);font-family:Arial, Helvetica, sans-serif;color:#f0f0ef;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">
+    Confirma a tua conta MimiFlix para sincronizar favoritos, watchlist e histórico.
+  </div>
+
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;border-collapse:collapse;">
+    <tr>
+      <td align="center" style="padding:32px 16px;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:640px;border-collapse:collapse;">
+          <tr>
+            <td style="padding-bottom:16px;text-align:left;font-size:34px;line-height:1;font-weight:800;letter-spacing:0.08em;color:#e50914;text-transform:uppercase;">
+              MimiFlix
+            </td>
+          </tr>
+
+          <tr>
+            <td style="border:1px solid rgba(255,255,255,0.08);border-radius:28px;background:linear-gradient(180deg, rgba(13,13,20,0.96) 0%, rgba(8,8,14,0.96) 100%);box-shadow:0 24px 60px rgba(0,0,0,0.45);overflow:hidden;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;">
+                <tr>
+                  <td style="padding:44px 40px 24px;background:linear-gradient(135deg, rgba(229,9,20,0.24) 0%, rgba(229,9,20,0.08) 42%, rgba(8,8,14,0) 100%);">
+                    <div style="display:inline-block;margin-bottom:16px;color:#e50914;font-size:12px;line-height:1.2;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;">
+                      Conta MimiFlix
+                    </div>
+                    <h1 style="margin:0;font-size:42px;line-height:0.95;font-weight:800;letter-spacing:0.02em;color:#f0f0ef;">
+                      Confirma o teu registo
+                    </h1>
+                    <p style="margin:18px 0 0;font-size:16px;line-height:1.8;color:#bababc;">
+                      Falta só um passo para ativares a tua conta e começares a guardar <strong style="color:#ffffff;">favoritos</strong>, <strong style="color:#ffffff;">watchlist</strong> e <strong style="color:#ffffff;">histórico</strong> no teu perfil.
+                    </p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:0 40px 12px;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0 10px;">
+                      <tr>
+                        <td style="padding:14px 16px;border:1px solid rgba(255,255,255,0.08);border-radius:18px;background:rgba(255,255,255,0.04);font-size:14px;line-height:1.5;color:#d7d7df;">
+                          Perfil pronto para sincronizar entre sessões
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 16px;border:1px solid rgba(255,255,255,0.08);border-radius:18px;background:rgba(255,255,255,0.04);font-size:14px;line-height:1.5;color:#d7d7df;">
+                          Acesso aos teus favoritos, listas e progresso guardado
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:20px 40px 12px;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;">
+                      <tr>
+                        <td align="center" bgcolor="#e50914" style="border-radius:999px;background:linear-gradient(180deg, #ff2330 0%, #e50914 100%);box-shadow:0 8px 32px rgba(229,9,20,0.35);">
+                          <a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:15px 28px;font-size:15px;line-height:1.1;font-weight:700;color:#ffffff;text-decoration:none;">
+                            Confirmar email
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:8px 40px 0;">
+                    <p style="margin:0;font-size:13px;line-height:1.7;color:#8888a0;">
+                      Se o botão não abrir, usa este link:
+                    </p>
+                    <p style="margin:8px 0 0;font-size:13px;line-height:1.7;word-break:break-all;">
+                      <a href="{{ .ConfirmationURL }}" style="color:#ff6b73;text-decoration:none;">{{ .ConfirmationURL }}</a>
+                    </p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:24px 40px 40px;">
+                    <p style="margin:0;font-size:13px;line-height:1.7;color:#8888a0;">
+                      Se não foste tu a criar esta conta, podes ignorar este email com segurança.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:18px 6px 0;text-align:center;font-size:12px;line-height:1.6;color:#6f7185;">
+              MimiFlix · Catálogo, favoritos e watchlist num layout de streaming
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

@@ -1,0 +1,799 @@
+{
+  "version": 3,
+  "updatedAt": "2026-05-03T20:11:18.642Z",
+  "favorites": [
+    {
+      "id": 1198994,
+      "title": "Socorro!",
+      "overview": "Quando dois colegas de trabalho ficam presos numa ilha deserta, sendo os únicos sobreviventes de um acidente de avião, têm de ultrapassar desavenças antigas e de trabalhar em conjunto para sobreviver.",
+      "poster_path": "/5AIxQpbSaS9KFnCmVdBCGP0Ss1p.jpg",
+      "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+      "release_date": "2026-01-22",
+      "vote_average": 7.003,
+      "original_language": "en"
+    },
+    {
+      "id": 1083381,
+      "title": "Backrooms: O Labirinto",
+      "overview": "Uma estranha porta surge na cave de uma loja de móveis.",
+      "poster_path": "/feyiIOpR0GYkGmj6cxhzKbuBL5J.jpg",
+      "backdrop_path": "/mCpwRayjXMFzKHbjbzc5JRKfq1O.jpg",
+      "release_date": "2026-05-27",
+      "vote_average": 0,
+      "original_language": "en"
+    }
+  ],
+  "watchlist": [
+    {
+      "id": 1083381,
+      "title": "Backrooms: O Labirinto",
+      "overview": "Uma estranha porta surge na cave de uma loja de móveis.",
+      "poster_path": "/feyiIOpR0GYkGmj6cxhzKbuBL5J.jpg",
+      "backdrop_path": "/mCpwRayjXMFzKHbjbzc5JRKfq1O.jpg",
+      "release_date": "2026-05-27",
+      "vote_average": 0,
+      "original_language": "en"
+    }
+  ],
+  "history": [
+    {
+      "movie": {
+        "id": 1480387,
+        "title": "undertone",
+        "overview": "A apresentadora de um popular podcast sobre o paranormal começa a ser perseguida por gravações aterradoras que lhe são enviadas misteriosamente.",
+        "poster_path": "/2PFgFMnrdCPXWiZl1PUvky7Mo9D.jpg",
+        "backdrop_path": "/qXxFWyur7jFkg2aQgENcXuyYeHF.jpg",
+        "release_date": "2026-03-12",
+        "vote_average": 6.4,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Mistério"
+        ]
+      },
+      "watchedAt": "2026-05-03T20:11:06.090Z",
+      "positionSeconds": 0,
+      "progressPercent": 0
+    },
+    {
+      "movie": {
+        "id": 1159559,
+        "title": "Gritos 7",
+        "overview": "Quando surge um novo assassino Ghostface na pacata cidade onde Sidney Prescott (Neve Campbell) construiu uma nova vida, os seus piores pesadelos ganham vida e a sua filha (Isabel May) torna-se o próximo alvo. Determinada a proteger a sua família, Sidney tem de enfrentar os terrores do seu passado para pôr um fim à matança de uma vez por todas.",
+        "poster_path": "/3NprVlfjpCpUExRMbfisqV3EK59.jpg",
+        "backdrop_path": "/t9J2HXaDuJR7bvIG9XF7mttn4VY.jpg",
+        "release_date": "2026-02-25",
+        "vote_average": 6.048,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Mistério",
+          "Crime"
+        ]
+      },
+      "watchedAt": "2026-05-03T20:08:04.819Z",
+      "positionSeconds": 0,
+      "progressPercent": 0
+    },
+    {
+      "movie": {
+        "id": 1226863,
+        "title": "Super Mario Galaxy - O Filme",
+        "overview": "Depois de terem frustrado o plano anterior de Bowser de se casar com a Princesa Peach, Mario e Luigi enfrentam agora uma nova ameaça: Bowser Jr., determinado a libertar o seu pai do cativeiro e a restaurar o legado da família. Ao lado de novos e antigos companheiros, os irmãos viajam pelas estrelas para impedir a cruzada do jovem herdeiro.",
+        "poster_path": "/rLknFqjjcHeXYGBbjbBEtHA3GMp.jpg",
+        "backdrop_path": "/xTd74mchq96pqfdlgmKDMQx12gv.jpg",
+        "release_date": "2026-04-01",
+        "vote_average": 6.7,
+        "original_language": "en",
+        "genres": []
+      },
+      "watchedAt": "2026-05-03T20:05:19.568Z",
+      "positionSeconds": 0,
+      "progressPercent": 0
+    },
+    {
+      "movie": {
+        "id": 1304313,
+        "title": "A Múmia de Lee Cronin",
+        "overview": "A jovem filha de um jornalista desaparece no deserto sem deixar rasto — oito anos depois, a família destroçada fica em choque quando ela regressa. O que deveria ser um reencontro feliz transforma-se num verdadeiro pesadelo.",
+        "poster_path": "/zeBhQ9BVVpkUUMFkvpctZ5AsOMs.jpg",
+        "backdrop_path": "/zc08qkHtWfZ2cQGQBK1S5yafJmR.jpg",
+        "release_date": "2026-04-15",
+        "vote_average": 6.753,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Mistério"
+        ]
+      },
+      "watchedAt": "2026-05-03T19:25:56.226Z",
+      "positionSeconds": 0,
+      "progressPercent": 0
+    },
+    {
+      "movie": {
+        "id": 1198994,
+        "title": "Socorro!",
+        "overview": "Quando dois colegas de trabalho ficam presos numa ilha deserta, sendo os únicos sobreviventes de um acidente de avião, têm de ultrapassar desavenças antigas e de trabalhar em conjunto para sobreviver.",
+        "poster_path": "/5AIxQpbSaS9KFnCmVdBCGP0Ss1p.jpg",
+        "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+        "release_date": "2026-01-22",
+        "vote_average": 7.003,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Thriller",
+          "Comédia"
+        ]
+      },
+      "watchedAt": "2026-05-03T19:13:48.764Z",
+      "positionSeconds": 0,
+      "progressPercent": 0
+    }
+  ],
+  "continueWatching": [
+    {
+      "movie": {
+        "id": 1480387,
+        "title": "undertone",
+        "overview": "A apresentadora de um popular podcast sobre o paranormal começa a ser perseguida por gravações aterradoras que lhe são enviadas misteriosamente.",
+        "poster_path": "/2PFgFMnrdCPXWiZl1PUvky7Mo9D.jpg",
+        "backdrop_path": "/qXxFWyur7jFkg2aQgENcXuyYeHF.jpg",
+        "release_date": "2026-03-12",
+        "vote_average": 6.4,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Mistério"
+        ]
+      },
+      "playedAt": "2026-05-03T20:11:12.157Z",
+      "positionSeconds": 16,
+      "progressPercent": 0
+    },
+    {
+      "movie": {
+        "id": 1159559,
+        "title": "Gritos 7",
+        "overview": "Quando surge um novo assassino Ghostface na pacata cidade onde Sidney Prescott (Neve Campbell) construiu uma nova vida, os seus piores pesadelos ganham vida e a sua filha (Isabel May) torna-se o próximo alvo. Determinada a proteger a sua família, Sidney tem de enfrentar os terrores do seu passado para pôr um fim à matança de uma vez por todas.",
+        "poster_path": "/3NprVlfjpCpUExRMbfisqV3EK59.jpg",
+        "backdrop_path": "/t9J2HXaDuJR7bvIG9XF7mttn4VY.jpg",
+        "release_date": "2026-02-25",
+        "vote_average": 6.048,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Mistério",
+          "Crime"
+        ]
+      },
+      "playedAt": "2026-05-03T20:08:25.432Z",
+      "positionSeconds": 20,
+      "progressPercent": 0
+    },
+    {
+      "movie": {
+        "id": 1304313,
+        "title": "A Múmia de Lee Cronin",
+        "overview": "A jovem filha de um jornalista desaparece no deserto sem deixar rasto — oito anos depois, a família destroçada fica em choque quando ela regressa. O que deveria ser um reencontro feliz transforma-se num verdadeiro pesadelo.",
+        "poster_path": "/zeBhQ9BVVpkUUMFkvpctZ5AsOMs.jpg",
+        "backdrop_path": "/zc08qkHtWfZ2cQGQBK1S5yafJmR.jpg",
+        "release_date": "2026-04-15",
+        "vote_average": 6.753,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Mistério"
+        ]
+      },
+      "playedAt": "2026-05-03T19:26:13.974Z",
+      "positionSeconds": 17,
+      "progressPercent": 0
+    },
+    {
+      "movie": {
+        "id": 1198994,
+        "title": "Socorro!",
+        "overview": "Quando dois colegas de trabalho ficam presos numa ilha deserta, sendo os únicos sobreviventes de um acidente de avião, têm de ultrapassar desavenças antigas e de trabalhar em conjunto para sobreviver.",
+        "poster_path": "/5AIxQpbSaS9KFnCmVdBCGP0Ss1p.jpg",
+        "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+        "release_date": "2026-01-22",
+        "vote_average": 7.003,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Thriller",
+          "Comédia"
+        ]
+      },
+      "playedAt": "2026-05-03T19:24:30.396Z",
+      "positionSeconds": 641,
+      "progressPercent": 9
+    }
+  ],
+  "customLists": [],
+  "personalReviews": [
+    {
+      "movieId": 1198994,
+      "movie": {
+        "id": 1198994,
+        "title": "Socorro!",
+        "overview": "Quando dois colegas de trabalho ficam presos numa ilha deserta, sendo os únicos sobreviventes de um acidente de avião, têm de ultrapassar desavenças antigas e de trabalhar em conjunto para sobreviver.",
+        "poster_path": "/5AIxQpbSaS9KFnCmVdBCGP0Ss1p.jpg",
+        "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+        "release_date": "2026-01-22",
+        "vote_average": 7.003,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Thriller",
+          "Comédia"
+        ]
+      },
+      "rating": 10,
+      "review": "Teste",
+      "updatedAt": "2026-05-03T18:46:26.531Z"
+    }
+  ],
+  "playerProgress": [
+    {
+      "movieId": 1480387,
+      "movie": {
+        "id": 1480387,
+        "title": "undertone",
+        "overview": "A apresentadora de um popular podcast sobre o paranormal começa a ser perseguida por gravações aterradoras que lhe são enviadas misteriosamente.",
+        "poster_path": "/2PFgFMnrdCPXWiZl1PUvky7Mo9D.jpg",
+        "backdrop_path": "/qXxFWyur7jFkg2aQgENcXuyYeHF.jpg",
+        "release_date": "2026-03-12",
+        "vote_average": 6.4,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Mistério"
+        ]
+      },
+      "positionSeconds": 10,
+      "runtime": 94,
+      "progressPercent": 0,
+      "updatedAt": "2026-05-03T20:08:42.327Z",
+      "lastDevice": "Win32 · Firefox",
+      "sessionCount": 1
+    },
+    {
+      "movieId": 1159559,
+      "movie": {
+        "id": 1159559,
+        "title": "Gritos 7",
+        "overview": "Quando surge um novo assassino Ghostface na pacata cidade onde Sidney Prescott (Neve Campbell) construiu uma nova vida, os seus piores pesadelos ganham vida e a sua filha (Isabel May) torna-se o próximo alvo. Determinada a proteger a sua família, Sidney tem de enfrentar os terrores do seu passado para pôr um fim à matança de uma vez por todas.",
+        "poster_path": "/3NprVlfjpCpUExRMbfisqV3EK59.jpg",
+        "backdrop_path": "/t9J2HXaDuJR7bvIG9XF7mttn4VY.jpg",
+        "release_date": "2026-02-25",
+        "vote_average": 6.048,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Mistério",
+          "Crime"
+        ]
+      },
+      "positionSeconds": 0,
+      "runtime": 114,
+      "progressPercent": 0,
+      "updatedAt": "2026-05-03T20:03:33.887Z",
+      "lastDevice": "Win32 · Firefox",
+      "sessionCount": 1
+    },
+    {
+      "movieId": 1304313,
+      "movie": {
+        "id": 1304313,
+        "title": "A Múmia de Lee Cronin",
+        "overview": "A jovem filha de um jornalista desaparece no deserto sem deixar rasto — oito anos depois, a família destroçada fica em choque quando ela regressa. O que deveria ser um reencontro feliz transforma-se num verdadeiro pesadelo.",
+        "poster_path": "/zeBhQ9BVVpkUUMFkvpctZ5AsOMs.jpg",
+        "backdrop_path": "/zc08qkHtWfZ2cQGQBK1S5yafJmR.jpg",
+        "release_date": "2026-04-15",
+        "vote_average": 6.753,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Mistério"
+        ]
+      },
+      "positionSeconds": 17,
+      "runtime": 133,
+      "progressPercent": 0,
+      "updatedAt": "2026-05-03T19:26:13.974Z",
+      "lastDevice": "",
+      "sessionCount": 1
+    },
+    {
+      "movieId": 1198994,
+      "movie": {
+        "id": 1198994,
+        "title": "Socorro!",
+        "overview": "Quando dois colegas de trabalho ficam presos numa ilha deserta, sendo os únicos sobreviventes de um acidente de avião, têm de ultrapassar desavenças antigas e de trabalhar em conjunto para sobreviver.",
+        "poster_path": "/5AIxQpbSaS9KFnCmVdBCGP0Ss1p.jpg",
+        "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+        "release_date": "2026-01-22",
+        "vote_average": 7.003,
+        "original_language": "en",
+        "genres": [
+          "Terror",
+          "Thriller",
+          "Comédia"
+        ]
+      },
+      "positionSeconds": 0,
+      "runtime": 113,
+      "progressPercent": 0,
+      "updatedAt": "2026-05-03T19:12:35.041Z",
+      "lastDevice": "",
+      "sessionCount": 1
+    }
+  ],
+  "followedProfiles": [
+    {
+      "shareCode": "mf-c52f02dd-c8ed-44b3-b2af-1e8cd8b3e5a1-1777835263360-yb7xdw",
+      "ownerUserId": "c52f02dd-c8ed-44b3-b2af-1e8cd8b3e5a1",
+      "displayName": "Aleixoeduardo83",
+      "avatarImage": "",
+      "avatarText": "A",
+      "exportedAt": "2026-05-03T19:07:43.360Z",
+      "favorites": [
+        {
+          "id": 1083381,
+          "title": "Backrooms: O Labirinto",
+          "overview": "Uma estranha porta surge na cave de uma loja de móveis.",
+          "poster_path": "/feyiIOpR0GYkGmj6cxhzKbuBL5J.jpg",
+          "backdrop_path": "/mCpwRayjXMFzKHbjbzc5JRKfq1O.jpg",
+          "release_date": "2026-05-27",
+          "vote_average": 0,
+          "original_language": "en"
+        }
+      ],
+      "lists": [],
+      "topReviews": []
+    }
+  ],
+  "dismissedNotifications": [
+    "badge-unlocked:progress-3",
+    "badge-unlocked:marathon-5",
+    "watchlist-release:1083381",
+    "badge-unlocked:social-circle",
+    "badge-unlocked:first-favorite"
+  ],
+  "announcedNotifications": [
+    "watchlist-release:1083381",
+    "badge-unlocked:progress-3",
+    "badge-unlocked:marathon-5"
+  ],
+  "badgeStats": {
+    "profileShareCount": 0,
+    "listShareCount": 0,
+    "unlockedBadgeIds": [
+      "first-favorite",
+      "social-circle",
+      "progress-3",
+      "marathon-5"
+    ]
+  },
+  "profilePrefs": {
+    "displayName": "dudu",
+    "avatarImage": "data:image/jpeg;base64,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",
+    "avatarEmoji": "ff"
+  },
+  "familyProfiles": [
+    {
+      "id": "profile-1777837231877",
+      "name": "teste2",
+      "favorites": [],
+      "watchlist": [],
+      "history": [],
+      "continueWatching": [],
+      "customLists": [],
+      "personalReviews": [],
+      "playerProgress": [],
+      "badgeStats": {
+        "profileShareCount": 0,
+        "listShareCount": 0,
+        "unlockedBadgeIds": [
+          "social-circle"
+        ]
+      },
+      "profilePrefs": {
+        "displayName": "teste2",
+        "avatarImage": "",
+        "avatarEmoji": "🎬"
+      }
+    },
+    {
+      "id": "profile-1777837017942",
+      "name": "Teste",
+      "favorites": [],
+      "watchlist": [],
+      "history": [],
+      "continueWatching": [],
+      "customLists": [],
+      "personalReviews": [],
+      "playerProgress": [],
+      "badgeStats": {
+        "profileShareCount": 0,
+        "listShareCount": 0,
+        "unlockedBadgeIds": [
+          "social-circle"
+        ]
+      },
+      "profilePrefs": {
+        "displayName": "Teste",
+        "avatarImage": "",
+        "avatarEmoji": "🎬"
+      }
+    },
+    {
+      "id": "main",
+      "name": "dudu",
+      "favorites": [
+        {
+          "id": 1198994,
+          "title": "Socorro!",
+          "overview": "Quando dois colegas de trabalho ficam presos numa ilha deserta, sendo os únicos sobreviventes de um acidente de avião, têm de ultrapassar desavenças antigas e de trabalhar em conjunto para sobreviver.",
+          "poster_path": "/5AIxQpbSaS9KFnCmVdBCGP0Ss1p.jpg",
+          "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+          "release_date": "2026-01-22",
+          "vote_average": 7.003,
+          "original_language": "en"
+        },
+        {
+          "id": 1083381,
+          "title": "Backrooms: O Labirinto",
+          "overview": "Uma estranha porta surge na cave de uma loja de móveis.",
+          "poster_path": "/feyiIOpR0GYkGmj6cxhzKbuBL5J.jpg",
+          "backdrop_path": "/mCpwRayjXMFzKHbjbzc5JRKfq1O.jpg",
+          "release_date": "2026-05-27",
+          "vote_average": 0,
+          "original_language": "en"
+        }
+      ],
+      "watchlist": [
+        {
+          "id": 1083381,
+          "title": "Backrooms: O Labirinto",
+          "overview": "Uma estranha porta surge na cave de uma loja de móveis.",
+          "poster_path": "/feyiIOpR0GYkGmj6cxhzKbuBL5J.jpg",
+          "backdrop_path": "/mCpwRayjXMFzKHbjbzc5JRKfq1O.jpg",
+          "release_date": "2026-05-27",
+          "vote_average": 0,
+          "original_language": "en"
+        }
+      ],
+      "history": [
+        {
+          "movie": {
+            "id": 1480387,
+            "title": "undertone",
+            "overview": "A apresentadora de um popular podcast sobre o paranormal começa a ser perseguida por gravações aterradoras que lhe são enviadas misteriosamente.",
+            "poster_path": "/2PFgFMnrdCPXWiZl1PUvky7Mo9D.jpg",
+            "backdrop_path": "/qXxFWyur7jFkg2aQgENcXuyYeHF.jpg",
+            "release_date": "2026-03-12",
+            "vote_average": 6.4,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Mistério"
+            ]
+          },
+          "watchedAt": "2026-05-03T20:11:06.090Z",
+          "positionSeconds": 0,
+          "progressPercent": 0
+        },
+        {
+          "movie": {
+            "id": 1159559,
+            "title": "Gritos 7",
+            "overview": "Quando surge um novo assassino Ghostface na pacata cidade onde Sidney Prescott (Neve Campbell) construiu uma nova vida, os seus piores pesadelos ganham vida e a sua filha (Isabel May) torna-se o próximo alvo. Determinada a proteger a sua família, Sidney tem de enfrentar os terrores do seu passado para pôr um fim à matança de uma vez por todas.",
+            "poster_path": "/3NprVlfjpCpUExRMbfisqV3EK59.jpg",
+            "backdrop_path": "/t9J2HXaDuJR7bvIG9XF7mttn4VY.jpg",
+            "release_date": "2026-02-25",
+            "vote_average": 6.048,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Mistério",
+              "Crime"
+            ]
+          },
+          "watchedAt": "2026-05-03T20:08:04.819Z",
+          "positionSeconds": 0,
+          "progressPercent": 0
+        },
+        {
+          "movie": {
+            "id": 1226863,
+            "title": "Super Mario Galaxy - O Filme",
+            "overview": "Depois de terem frustrado o plano anterior de Bowser de se casar com a Princesa Peach, Mario e Luigi enfrentam agora uma nova ameaça: Bowser Jr., determinado a libertar o seu pai do cativeiro e a restaurar o legado da família. Ao lado de novos e antigos companheiros, os irmãos viajam pelas estrelas para impedir a cruzada do jovem herdeiro.",
+            "poster_path": "/rLknFqjjcHeXYGBbjbBEtHA3GMp.jpg",
+            "backdrop_path": "/xTd74mchq96pqfdlgmKDMQx12gv.jpg",
+            "release_date": "2026-04-01",
+            "vote_average": 6.7,
+            "original_language": "en",
+            "genres": []
+          },
+          "watchedAt": "2026-05-03T20:05:19.568Z",
+          "positionSeconds": 0,
+          "progressPercent": 0
+        },
+        {
+          "movie": {
+            "id": 1304313,
+            "title": "A Múmia de Lee Cronin",
+            "overview": "A jovem filha de um jornalista desaparece no deserto sem deixar rasto — oito anos depois, a família destroçada fica em choque quando ela regressa. O que deveria ser um reencontro feliz transforma-se num verdadeiro pesadelo.",
+            "poster_path": "/zeBhQ9BVVpkUUMFkvpctZ5AsOMs.jpg",
+            "backdrop_path": "/zc08qkHtWfZ2cQGQBK1S5yafJmR.jpg",
+            "release_date": "2026-04-15",
+            "vote_average": 6.753,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Mistério"
+            ]
+          },
+          "watchedAt": "2026-05-03T19:25:56.226Z",
+          "positionSeconds": 0,
+          "progressPercent": 0
+        },
+        {
+          "movie": {
+            "id": 1198994,
+            "title": "Socorro!",
+            "overview": "Quando dois colegas de trabalho ficam presos numa ilha deserta, sendo os únicos sobreviventes de um acidente de avião, têm de ultrapassar desavenças antigas e de trabalhar em conjunto para sobreviver.",
+            "poster_path": "/5AIxQpbSaS9KFnCmVdBCGP0Ss1p.jpg",
+            "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+            "release_date": "2026-01-22",
+            "vote_average": 7.003,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Thriller",
+              "Comédia"
+            ]
+          },
+          "watchedAt": "2026-05-03T19:13:48.764Z",
+          "positionSeconds": 0,
+          "progressPercent": 0
+        }
+      ],
+      "continueWatching": [
+        {
+          "movie": {
+            "id": 1480387,
+            "title": "undertone",
+            "overview": "A apresentadora de um popular podcast sobre o paranormal começa a ser perseguida por gravações aterradoras que lhe são enviadas misteriosamente.",
+            "poster_path": "/2PFgFMnrdCPXWiZl1PUvky7Mo9D.jpg",
+            "backdrop_path": "/qXxFWyur7jFkg2aQgENcXuyYeHF.jpg",
+            "release_date": "2026-03-12",
+            "vote_average": 6.4,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Mistério"
+            ]
+          },
+          "playedAt": "2026-05-03T20:11:12.157Z",
+          "positionSeconds": 16,
+          "progressPercent": 0
+        },
+        {
+          "movie": {
+            "id": 1159559,
+            "title": "Gritos 7",
+            "overview": "Quando surge um novo assassino Ghostface na pacata cidade onde Sidney Prescott (Neve Campbell) construiu uma nova vida, os seus piores pesadelos ganham vida e a sua filha (Isabel May) torna-se o próximo alvo. Determinada a proteger a sua família, Sidney tem de enfrentar os terrores do seu passado para pôr um fim à matança de uma vez por todas.",
+            "poster_path": "/3NprVlfjpCpUExRMbfisqV3EK59.jpg",
+            "backdrop_path": "/t9J2HXaDuJR7bvIG9XF7mttn4VY.jpg",
+            "release_date": "2026-02-25",
+            "vote_average": 6.048,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Mistério",
+              "Crime"
+            ]
+          },
+          "playedAt": "2026-05-03T20:08:25.432Z",
+          "positionSeconds": 20,
+          "progressPercent": 0
+        },
+        {
+          "movie": {
+            "id": 1304313,
+            "title": "A Múmia de Lee Cronin",
+            "overview": "A jovem filha de um jornalista desaparece no deserto sem deixar rasto — oito anos depois, a família destroçada fica em choque quando ela regressa. O que deveria ser um reencontro feliz transforma-se num verdadeiro pesadelo.",
+            "poster_path": "/zeBhQ9BVVpkUUMFkvpctZ5AsOMs.jpg",
+            "backdrop_path": "/zc08qkHtWfZ2cQGQBK1S5yafJmR.jpg",
+            "release_date": "2026-04-15",
+            "vote_average": 6.753,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Mistério"
+            ]
+          },
+          "playedAt": "2026-05-03T19:26:13.974Z",
+          "positionSeconds": 17,
+          "progressPercent": 0
+        },
+        {
+          "movie": {
+            "id": 1198994,
+            "title": "Socorro!",
+            "overview": "Quando dois colegas de trabalho ficam presos numa ilha deserta, sendo os únicos sobreviventes de um acidente de avião, têm de ultrapassar desavenças antigas e de trabalhar em conjunto para sobreviver.",
+            "poster_path": "/5AIxQpbSaS9KFnCmVdBCGP0Ss1p.jpg",
+            "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+            "release_date": "2026-01-22",
+            "vote_average": 7.003,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Thriller",
+              "Comédia"
+            ]
+          },
+          "playedAt": "2026-05-03T19:24:30.396Z",
+          "positionSeconds": 641,
+          "progressPercent": 9
+        }
+      ],
+      "customLists": [],
+      "personalReviews": [
+        {
+          "movieId": 1198994,
+          "movie": {
+            "id": 1198994,
+            "title": "Socorro!",
+            "overview": "Quando dois colegas de trabalho ficam presos numa ilha deserta, sendo os únicos sobreviventes de um acidente de avião, têm de ultrapassar desavenças antigas e de trabalhar em conjunto para sobreviver.",
+            "poster_path": "/5AIxQpbSaS9KFnCmVdBCGP0Ss1p.jpg",
+            "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+            "release_date": "2026-01-22",
+            "vote_average": 7.003,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Thriller",
+              "Comédia"
+            ]
+          },
+          "rating": 10,
+          "review": "Teste",
+          "updatedAt": "2026-05-03T18:46:26.531Z"
+        }
+      ],
+      "playerProgress": [
+        {
+          "movieId": 1480387,
+          "movie": {
+            "id": 1480387,
+            "title": "undertone",
+            "overview": "A apresentadora de um popular podcast sobre o paranormal começa a ser perseguida por gravações aterradoras que lhe são enviadas misteriosamente.",
+            "poster_path": "/2PFgFMnrdCPXWiZl1PUvky7Mo9D.jpg",
+            "backdrop_path": "/qXxFWyur7jFkg2aQgENcXuyYeHF.jpg",
+            "release_date": "2026-03-12",
+            "vote_average": 6.4,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Mistério"
+            ]
+          },
+          "positionSeconds": 10,
+          "runtime": 94,
+          "progressPercent": 0,
+          "updatedAt": "2026-05-03T20:08:42.327Z",
+          "lastDevice": "Win32 · Firefox",
+          "sessionCount": 1
+        },
+        {
+          "movieId": 1159559,
+          "movie": {
+            "id": 1159559,
+            "title": "Gritos 7",
+            "overview": "Quando surge um novo assassino Ghostface na pacata cidade onde Sidney Prescott (Neve Campbell) construiu uma nova vida, os seus piores pesadelos ganham vida e a sua filha (Isabel May) torna-se o próximo alvo. Determinada a proteger a sua família, Sidney tem de enfrentar os terrores do seu passado para pôr um fim à matança de uma vez por todas.",
+            "poster_path": "/3NprVlfjpCpUExRMbfisqV3EK59.jpg",
+            "backdrop_path": "/t9J2HXaDuJR7bvIG9XF7mttn4VY.jpg",
+            "release_date": "2026-02-25",
+            "vote_average": 6.048,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Mistério",
+              "Crime"
+            ]
+          },
+          "positionSeconds": 0,
+          "runtime": 114,
+          "progressPercent": 0,
+          "updatedAt": "2026-05-03T20:03:33.887Z",
+          "lastDevice": "Win32 · Firefox",
+          "sessionCount": 1
+        },
+        {
+          "movieId": 1304313,
+          "movie": {
+            "id": 1304313,
+            "title": "A Múmia de Lee Cronin",
+            "overview": "A jovem filha de um jornalista desaparece no deserto sem deixar rasto — oito anos depois, a família destroçada fica em choque quando ela regressa. O que deveria ser um reencontro feliz transforma-se num verdadeiro pesadelo.",
+            "poster_path": "/zeBhQ9BVVpkUUMFkvpctZ5AsOMs.jpg",
+            "backdrop_path": "/zc08qkHtWfZ2cQGQBK1S5yafJmR.jpg",
+            "release_date": "2026-04-15",
+            "vote_average": 6.753,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Mistério"
+            ]
+          },
+          "positionSeconds": 17,
+          "runtime": 133,
+          "progressPercent": 0,
+          "updatedAt": "2026-05-03T19:26:13.974Z",
+          "lastDevice": "",
+          "sessionCount": 1
+        },
+        {
+          "movieId": 1198994,
+          "movie": {
+            "id": 1198994,
+            "title": "Socorro!",
+            "overview": "Quando dois colegas de trabalho ficam presos numa ilha deserta, sendo os únicos sobreviventes de um acidente de avião, têm de ultrapassar desavenças antigas e de trabalhar em conjunto para sobreviver.",
+            "poster_path": "/5AIxQpbSaS9KFnCmVdBCGP0Ss1p.jpg",
+            "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+            "release_date": "2026-01-22",
+            "vote_average": 7.003,
+            "original_language": "en",
+            "genres": [
+              "Terror",
+              "Thriller",
+              "Comédia"
+            ]
+          },
+          "positionSeconds": 0,
+          "runtime": 113,
+          "progressPercent": 0,
+          "updatedAt": "2026-05-03T19:12:35.041Z",
+          "lastDevice": "",
+          "sessionCount": 1
+        }
+      ],
+      "badgeStats": {
+        "profileShareCount": 0,
+        "listShareCount": 0,
+        "unlockedBadgeIds": [
+          "first-favorite",
+          "social-circle",
+          "progress-3",
+          "marathon-5"
+        ]
+      },
+      "profilePrefs": {
+        "displayName": "dudu",
+        "avatarImage": "data:image/jpeg;base64,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",
+        "avatarEmoji": "ff"
+      }
+    }
+  ],
+  "activeFamilyProfileId": "main",
+  "appPreferences": {
+    "theme": "dark",
+    "homeSectionOrder": [
+      "for-you",
+      "continue-watching",
+      "next-up",
+      "profile-collections",
+      "popular",
+      "top-rated",
+      "upcoming",
+      "now-playing"
+    ],
+    "hiddenHomeSections": [],
+    "cinemaMode": true
+  },
+  "syncedAt": "2026-05-03T20:11:18.723Z"
+}
