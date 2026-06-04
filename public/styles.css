@@ -2177,6 +2177,23 @@ body.mobile-ui .profile-actions > * {
   box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(229,9,20,0.18);
 }
 
+/* ── Watch progress bar on cards ── */
+.card-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255,255,255,0.15);
+  z-index: 3;
+}
+.card-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+  transition: width 0.3s ease;
+}
+
 /* ─── FAVORITES BUTTON ON CARD ──────────── */
 /* Now inside .card-poster-wrap */
 .card-poster-wrap .card-quick-actions {

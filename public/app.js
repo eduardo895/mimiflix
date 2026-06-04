@@ -5049,11 +5049,16 @@ function renderMovieCards(container, movies, options = {}) {
     const genreLabel = Array.isArray(movie.genres) && movie.genres.length ? escapeHtml(movie.genres[0]) : "";
     const mediaTypeLabel = getMediaType(movie) === "tv" ? "Série" : "Filme";
 
+    // Check watch progress for this movie
+    const progressEntry = continueWatchingCache.find((e) => e.movie?.id === movie.id);
+    const progressPct = progressEntry?.progressPercent || 0;
+
     card.innerHTML = `
       <div class="card-poster-wrap">
         <img src="${poster}" alt="${escapeHtml(movie.title)}" loading="lazy">
         ${options.showRanking && movie.rank ? `<div class="card-rank-badge">#${movie.rank}</div>` : ""}
         ${!options.showRanking && movie.chronological_index ? `<div class="card-rank-badge card-rank-badge--timeline">${movie.chronological_index}</div>` : ""}
+        ${progressPct > 2 && progressPct < 95 ? `<div class="card-progress-bar"><div class="card-progress-fill" style="width:${progressPct}%"></div></div>` : ""}
         <div class="card-quick-actions">
           <button class="card-fav${fav ? " is-fav" : ""}" data-id="${movie.id}" data-media-type="${getMediaType(movie)}" data-media-key="${getMediaKey(movie)}" type="button"
             aria-label="${fav ? "Remover dos favoritos" : "Adicionar aos favoritos"}">
@@ -5417,6 +5422,46 @@ async function renderDetailContent(mediaRef) {
     detailTitle.textContent = selectedMovie.title;
     detailOverview.textContent = selectedMovie.overview || "Sem sinopse disponível.";
     detailMeta.innerHTML = buildMetaHtml(selectedMovie, true);
+
+    // SEO: update page title and meta description dynamically
+    document.title = `${selectedMovie.title} — MimiFlix`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", selectedMovie.overview || `Ver ${selectedMovie.title} online grátis no MimiFlix.`);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", `${selectedMovie.title} — MimiFlix`);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute("content", selectedMovie.overview || `Ver ${selectedMovie.title} online grátis no MimiFlix.`);
+    if (selectedMovie.backdrop_path) {
+      const ogImg = document.querySelector('meta[property="og:image"]');
+      if (ogImg) ogImg.setAttribute("content", `${IMAGE_BASE_URL}${selectedMovie.backdrop_path}`);
+    }
+
+    // JSON-LD Structured Data for Google
+    const existingLd = document.getElementById("ld-json");
+    if (existingLd) existingLd.remove();
+    const ldScript = document.createElement("script");
+    ldScript.id = "ld-json";
+    ldScript.type = "application/ld+json";
+    const isTvLd = getMediaType(selectedMovie) === "tv";
+    ldScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": isTvLd ? "TVSeries" : "Movie",
+      "name": selectedMovie.title,
+      "description": selectedMovie.overview || "",
+      "datePublished": selectedMovie.release_date || "",
+      "image": selectedMovie.poster_path ? `${POSTER_BASE_URL}${selectedMovie.poster_path}` : "",
+      "aggregateRating": selectedMovie.vote_average > 0 ? {
+        "@type": "AggregateRating",
+        "ratingValue": selectedMovie.vote_average.toFixed(1),
+        "ratingCount": selectedMovie.vote_count || 0,
+        "bestRating": "10",
+        "worstRating": "1"
+      } : undefined,
+      "genre": Array.isArray(selectedMovie.genres) ? selectedMovie.genres : [],
+      "url": `https://mimiflix.org/#/detalhe/${isTvLd ? "tv" : "movie"}/${selectedMovie.id}`
+    });
+    document.head.appendChild(ldScript);
+
     renderDetailFactsPanel(selectedMovie);
     renderDetailAvailabilityPanel(selectedMovie, isTv);
 
@@ -5562,6 +5607,9 @@ function closeDetails() {
   }
   detailModal.classList.add("hidden");
   detailModal.setAttribute("aria-hidden", "true");
+  document.title = "MimiFlix — Filmes e Séries Online Grátis";
+  const _ld = document.getElementById("ld-json");
+  if (_ld) _ld.remove();
   if (detailFacts) detailFacts.innerHTML = "";
   if (detailPremium) detailPremium.innerHTML = "";
   if (detailSeriesPanel) {
@@ -6744,8 +6792,26 @@ reloadBtn?.addEventListener("click", () => {
 heroPlayBtn.addEventListener("click", () => { if (featuredMovie) openPlayer(featuredMovie); });
 heroInfoBtn.addEventListener("click", () => { if (featuredMovie) openDetails(featuredMovie); });
 
-// Mobile: tap anywhere on hero card to play
+// Hero swipe (mobile)
 const heroSection = document.getElementById("hero");
+if (heroSection) {
+  let _swipeStartX = 0;
+  heroSection.addEventListener("touchstart", (e) => { _swipeStartX = e.touches[0].clientX; }, { passive: true });
+  heroSection.addEventListener("touchend", (e) => {
+    const dx = e.changedTouches[0].clientX - _swipeStartX;
+    if (Math.abs(dx) < 40) return;
+    if (!heroRotationList.length) return;
+    if (dx < 0) {
+      const next = (heroRotationIndex + 1) % heroRotationList.length;
+      goToHeroSlide(next); resetHeroRotationTimer();
+    } else {
+      const prev = (heroRotationIndex - 1 + heroRotationList.length) % heroRotationList.length;
+      goToHeroSlide(prev); resetHeroRotationTimer();
+    }
+  }, { passive: true });
+}
+
+// Mobile: tap anywhere on hero card to play
 if (heroSection) {
   heroSection.addEventListener("click", (e) => {
     if (!document.body.classList.contains("mobile-ui")) return;
@@ -6856,6 +6922,13 @@ document.addEventListener("click", (event) => {
     }
   }
 });
+
+// ─── PWA Service Worker ───────────────────────────────────────
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  });
+}
 
 // ─── Init ─────────────────────────────────────────────────────
 window.addEventListener("message", handlePlayerMessage);

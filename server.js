@@ -1337,15 +1337,15 @@ function pickFeaturedMovies(sections, count = 5) {
   const heroSections = sections.filter((s) => heroSectionIds.has(s.id));
   const sourceSections = heroSections.length ? heroSections : sections.slice(0, 2);
   // Only allow these languages in the hero
+  // Only allow English and Portuguese in the hero
   const allowedLanguages = new Set(["en", "pt"]);
 
   for (const section of sourceSections) {
     for (const movie of section.movies) {
       if (!movie.backdrop_path) continue;
       if (seen.has(movie.id)) continue;
-      if (typeof movie.vote_count === "number" && movie.vote_count < 500) continue;
       if (typeof movie.vote_average === "number" && movie.vote_average < 5.5) continue;
-      // Filter out non-English/Portuguese movies
+      if (typeof movie.vote_count === "number" && movie.vote_count < 300) continue;
       const lang = String(movie.original_language || "").toLowerCase();
       if (!allowedLanguages.has(lang)) continue;
       seen.add(movie.id);
@@ -2245,6 +2245,57 @@ async function handleStreamedPkStream(requestUrl, res) {
   }
 }
 
+async function handleSitemap(res) {
+  const BASE = "https://mimiflix.org";
+  const lang = "pt-PT";
+  const today = new Date().toISOString().split("T")[0];
+
+  try {
+    // Fetch popular movies and series for the sitemap
+    const [movies, series] = await Promise.all([
+      fetchTmdb(`/movie/popular?language=${lang}&page=1`).catch(() => ({ results: [] })),
+      fetchTmdb(`/tv/popular?language=${lang}&page=1`).catch(() => ({ results: [] }))
+    ]);
+
+    const movieUrls = (movies.results || []).slice(0, 20).map((m) => `
+  <url>
+    <loc>${BASE}/#/detalhe/movie/${m.id}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join("");
+
+    const seriesUrls = (series.results || []).slice(0, 20).map((s) => `
+  <url>
+    <loc>${BASE}/#/detalhe/tv/${s.id}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join("");
+
+    const staticUrls = ["/", "/dmca.html", "/privacy.html"].map((p) => `
+  <url>
+    <loc>${BASE}${p}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>${p === "/" ? "1.0" : "0.3"}</priority>
+  </url>`).join("");
+
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${staticUrls}
+${movieUrls}
+${seriesUrls}
+</urlset>`;
+
+    res.writeHead(200, { "Content-Type": "application/xml; charset=utf-8" });
+    res.end(xml);
+  } catch (err) {
+    res.writeHead(500);
+    res.end("Erro ao gerar sitemap");
+  }
+}
+
 async function handleLiveSports(requestUrl, res) {
   const query = {
     sport: requestUrl.searchParams.get("sport") || "",
@@ -2593,6 +2644,11 @@ function serveStaticFile(requestUrl, res) {
 
 const server = http.createServer(async (req, res) => {
   const requestUrl = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+
+  if (requestUrl.pathname === "/sitemap.xml") {
+    await handleSitemap(res);
+    return;
+  }
 
   if (requestUrl.pathname === "/api/config") {
     sendJson(res, 200, { supabaseUrl: SUPABASE_URL, supabaseAnonKey: SUPABASE_ANON_KEY });
