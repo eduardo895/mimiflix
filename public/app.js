@@ -6119,6 +6119,18 @@ function renderPlayerContext(movie) {
   });
 }
 
+// ── Popup monetization ───────────────────────────────────────
+// Replace with your ad network popup URL when ready
+const POPUP_AD_URL = ""; // e.g. "https://popads.net/show/xxxxx"
+// Only fire popup on non-sandbox providers
+function maybeFirePopupAd(provider) {
+  if (!POPUP_AD_URL) return;
+  if (SANDBOX_PROVIDERS.has(provider)) return;
+  try {
+    window.open(POPUP_AD_URL, "_blank", "noopener");
+  } catch {}
+}
+
 function openPlayer(movie) {
   const normalized = normalizeMovie(movie);
   if (!normalized) return;
@@ -6127,6 +6139,7 @@ function openPlayer(movie) {
   const season = isTv ? Math.max(1, Number(normalized.selectedSeason || latestProgress?.season || 1) || 1) : null;
   const episode = isTv ? Math.max(1, Number(normalized.selectedEpisode || latestProgress?.episode || 1) || 1) : null;
   const provider = getCurrentPlayerProvider();
+  maybeFirePopupAd(provider);
   recordPlayback({ ...normalized, selectedSeason: season, selectedEpisode: episode, social_context: isTv ? formatEpisodeLabel(season, episode) : normalized.social_context });
   stopActivePlaybackTracking();
   const existingProgress = getPlayerProgress(normalized, { season, episode });
