@@ -6562,6 +6562,11 @@ function handlePlayerMessage(event) {
 // ─── Helpers ─────────────────────────────────────────────────
 async function fetchJson(url, options = {}) {
   const res = await fetch(url, options);
+  const contentType = res.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    if (res.status === 429) throw new Error("Demasiados pedidos. Tenta novamente em breve.");
+    throw new Error(`Erro ${res.status}: resposta inesperada do servidor.`);
+  }
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || "Erro ao carregar dados.");
   return data;

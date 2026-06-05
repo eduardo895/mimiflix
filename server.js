@@ -2646,8 +2646,8 @@ function serveStaticFile(requestUrl, res) {
 // ─── Rate Limiting ────────────────────────────────────────────
 const rateLimitMap = new Map();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minuto
-const RATE_LIMIT_MAX_REQUESTS = 120;    // max requests por IP por minuto
-const RATE_LIMIT_API_MAX = 60;          // max API requests por IP por minuto
+const RATE_LIMIT_MAX_REQUESTS = 600;    // max requests por IP por minuto
+const RATE_LIMIT_API_MAX = 300;         // max API requests por IP por minuto
 
 setInterval(() => {
   const now = Date.now();
