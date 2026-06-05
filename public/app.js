@@ -5367,7 +5367,7 @@ function renderDetailAvailabilityPanel(movie, isTv) {
 
   detailAvailability.querySelectorAll("[data-open-person-id]").forEach((button) => {
     button.addEventListener("click", () => {
-      navigateTo(`/pessoa/${button.dataset.openPersonId}`);
+      setTimeout(() => navigateTo(`/pessoa/${button.dataset.openPersonId}`), 0);
     });
   });
 }
@@ -5520,14 +5520,17 @@ function renderSeriesPanel(series) {
 
 async function openDetails(mediaRef) {
   const targetPath = buildDetailPath(mediaRef);
-  if (`#${targetPath}` === location.hash) {
-    const match = getDetailRouteMatch(targetPath.split("?")[0]);
-    if (match) {
-      viewDetailPage(match, new URLSearchParams(targetPath.split("?")[1] || ""));
+  // Yield to browser immediately so the click response is instant (fixes INP)
+  setTimeout(() => {
+    if (`#${targetPath}` === location.hash) {
+      const match = getDetailRouteMatch(targetPath.split("?")[0]);
+      if (match) {
+        viewDetailPage(match, new URLSearchParams(targetPath.split("?")[1] || ""));
+      }
+      return;
     }
-    return;
-  }
-  navigateTo(targetPath);
+    navigateTo(targetPath);
+  }, 0);
 }
 
 async function renderDetailContent(mediaRef) {
@@ -6950,7 +6953,7 @@ searchToggleBtn?.addEventListener("click", openSearchOverlay);
 // Mobile bottom nav search tab — open overlay instead of navigating
 document.querySelector('.mobile-bottom-link[data-route="/pesquisa"]')?.addEventListener("click", (e) => {
   e.preventDefault();
-  openSearchOverlay();
+  setTimeout(() => openSearchOverlay(), 0);
 });
 searchCloseBtn?.addEventListener("click", () => {
   searchOverlay?.classList.add("hidden");

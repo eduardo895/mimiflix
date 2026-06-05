@@ -2598,7 +2598,8 @@ function sendJson(res, statusCode, payload) {
   const body = JSON.stringify(payload);
   res.writeHead(statusCode, {
     "Content-Length": Buffer.byteLength(body),
-    "Content-Type": "application/json; charset=utf-8"
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "no-store"
   });
   res.end(body);
 }
@@ -2642,8 +2643,61 @@ function serveStaticFile(requestUrl, res) {
   sendFile(res, filePath);
 }
 
+// ─── Rate Limiting ────────────────────────────────────────────
+const rateLimitMap = new Map();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minuto
+const RATE_LIMIT_MAX_REQUESTS = 120;    // max requests por IP por minuto
+const RATE_LIMIT_API_MAX = 60;          // max API requests por IP por minuto
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, data] of rateLimitMap.entries()) {
+    if (now - data.windowStart > RATE_LIMIT_WINDOW_MS) rateLimitMap.delete(ip);
+  }
+}, 60 * 1000);
+
+function checkRateLimit(ip, isApi = false) {
+  const now = Date.now();
+  const max = isApi ? RATE_LIMIT_API_MAX : RATE_LIMIT_MAX_REQUESTS;
+  const key = isApi ? `api:${ip}` : ip;
+  let data = rateLimitMap.get(key);
+  if (!data || now - data.windowStart > RATE_LIMIT_WINDOW_MS) {
+    data = { count: 0, windowStart: now };
+  }
+  data.count++;
+  rateLimitMap.set(key, data);
+  return data.count > max;
+}
+
+function getClientIp(req) {
+  return (req.headers["cf-connecting-ip"] ||
+          req.headers["x-forwarded-for"]?.split(",")[0] ||
+          req.socket.remoteAddress || "unknown").trim();
+}
+
+// ─── Security Headers ─────────────────────────────────────────
+function addSecurityHeaders(res) {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "SAMEORIGIN");
+  res.setHeader("X-XSS-Protection", "1; mode=block");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+}
+
 const server = http.createServer(async (req, res) => {
+  const ip = getClientIp(req);
   const requestUrl = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+  const isApi = requestUrl.pathname.startsWith("/api/");
+
+  // Rate limiting
+  if (checkRateLimit(ip, isApi)) {
+    res.writeHead(429, { "Content-Type": "application/json", "Retry-After": "60" });
+    res.end(JSON.stringify({ error: "Too many requests. Tenta novamente em 1 minuto." }));
+    return;
+  }
+
+  // Security headers em todos os pedidos
+  addSecurityHeaders(res);
 
   if (requestUrl.pathname === "/sitemap.xml") {
     await handleSitemap(res);
