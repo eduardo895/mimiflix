@@ -726,6 +726,7 @@ body.mobile-ui .site-footer { display: none; }
   opacity: 1;
 }
 
+
 .hero-overlay {
   z-index: 2;
   background:
@@ -972,26 +973,6 @@ body.mobile-ui .site-footer { display: none; }
   animation: heroIn 1s var(--ease) 0.15s both;
 }
 
-.hero-mute-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.3);
-  background: rgba(0,0,0,0.35);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  backdrop-filter: blur(8px);
-  transition: background 0.2s, border-color 0.2s, transform 0.18s;
-}
-
-.hero-mute-btn:hover {
-  background: rgba(255,255,255,0.15);
-  border-color: rgba(255,255,255,0.55);
-  transform: scale(1.08);
-}
 
 .hero-poster {
   width: 120px;
@@ -2175,6 +2156,136 @@ body.mobile-ui .profile-actions > * {
 .movie-card:hover .card-poster-wrap {
   border-color: rgba(229,9,20,0.3);
   box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(229,9,20,0.18);
+}
+
+/* ── Genre Page ── */
+.genre-banner {
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  align-items: flex-end;
+  background: linear-gradient(135deg, #0d0d1a, #1a0a1a);
+  background-size: cover;
+  background-position: center 30%;
+  overflow: hidden;
+}
+.genre-banner.has-backdrop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(6,6,10,1) 0%, rgba(6,6,10,0.7) 40%, rgba(6,6,10,0.3) 100%),
+    linear-gradient(90deg, rgba(6,6,10,0.9) 0%, transparent 60%);
+  filter: brightness(0.5);
+}
+.genre-banner-inner {
+  position: relative;
+  z-index: 2;
+  padding: 48px 56px 36px;
+  width: 100%;
+}
+.genre-banner-type {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.genre-type-btn {
+  padding: 6px 18px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  background: transparent;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.genre-type-btn.is-active,
+.genre-type-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.genre-banner-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.genre-banner-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.genre-pill {
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.7);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+  backdrop-filter: blur(6px);
+}
+.genre-pill:hover { background: rgba(255,255,255,0.15); color: #fff; }
+.genre-pill.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.genre-controls {
+  padding: 20px 56px 8px;
+  background: var(--bg);
+}
+.genre-controls-inner {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  color: #fff;
+  font-size: 13px;
+  font-family: inherit;
+  padding: 7px 32px 7px 14px;
+  cursor: pointer;
+  outline: none;
+  backdrop-filter: blur(8px);
+  transition: background 0.18s, border-color 0.18s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+.filter-select:hover {
+  background-color: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.3);
+}
+.filter-select:focus {
+  border-color: var(--accent, #e50914);
+  background-color: rgba(255,255,255,0.1);
+}
+.filter-select option {
+  background: #1a1a2e;
+  color: #fff;
+}
+.genre-page-results {
+  padding: 16px 48px 48px;
+  background: var(--bg);
+  min-height: 400px;
+}
+@media (max-width: 768px) {
+  .genre-banner-inner { padding: 32px 20px 24px; }
+  .genre-controls { padding: 16px 20px 8px; }
+  .genre-page-results { padding: 12px 16px 80px; }
 }
 
 /* ── Picture-in-Picture ── */
@@ -3606,17 +3717,13 @@ body.cinema-mode .player-card {
 
 /* Strip outer with nav arrows */
 .ep-strip-outer {
-  position: relative;
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: 10px;
 }
 
 .ep-strip-nav {
-  position: absolute;
-  z-index: 4;
-  top: 50%;
-  transform: translateY(-50%);
+  flex: 0 0 auto;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -3636,12 +3743,9 @@ body.cinema-mode .player-card {
 .ep-strip-nav:hover {
   background: rgba(40,40,50,0.95);
   border-color: rgba(255,255,255,0.5);
-  transform: translateY(-50%) scale(1.08);
+  transform: scale(1.08);
   opacity: 1;
 }
-
-.ep-strip-nav--prev { left: -14px; }
-.ep-strip-nav--next { right: -14px; }
 
 /* Track */
 .ep-strip-track {
@@ -3650,12 +3754,25 @@ body.cinema-mode .player-card {
   gap: 14px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  padding: 4px 2px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
+  padding: 4px 60px 14px 2px;
   flex: 1;
 }
 
-.ep-strip-track::-webkit-scrollbar { display: none; }
+.ep-strip-track::-webkit-scrollbar {
+  height: 4px;
+}
+.ep-strip-track::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ep-strip-track::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+.ep-strip-track::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.4);
+}
 
 /* Episode card */
 .ep-card {
@@ -4580,8 +4697,6 @@ iframe {
     flex: 1 1 100%;
   }
 
-  .ep-strip-nav--prev { left: -8px; }
-  .ep-strip-nav--next { right: -8px; }
 
   .detail-availability-list,
   .profile-actions,
@@ -5580,6 +5695,14 @@ iframe {
 }
 .chip:hover, .genre-tag:hover {
   transform: scale(1.08);
+}
+a.chip, a.genre-tag {
+  text-decoration: none;
+  cursor: pointer;
+}
+a.chip:hover, a.genre-tag:hover {
+  background: var(--accent, #e50914);
+  color: #fff;
 }
 
 /* ── Nav "Mais" dropdown ───────────────────────────────────── */

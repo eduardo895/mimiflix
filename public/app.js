@@ -3009,6 +3009,7 @@ const ROUTES = {
   "/colecoes": viewColecoes,
   "/inicio-editor": viewHomeEditor,
   "/perfil": viewPerfil,
+  "/genero": viewGenero,
   "/resumo-anual": viewResumoAnual,
   "/perfis": viewPerfis,
   "/pesquisa": viewPesquisa,
@@ -3111,8 +3112,11 @@ function handleRoute() {
   }
   detachDetailRouteShell();
   const personMatch = path.match(/^\/pessoa\/(\d+)$/);
+  const generoMatch = path.match(/^\/genero\/(\d+)(?:\/(\w+))?$/);
   if (personMatch) {
     viewPessoa(personMatch[1]);
+  } else if (generoMatch) {
+    viewGenero(generoMatch[1], generoMatch[2] || "movie");
   } else {
     (ROUTES[path] || viewHome)();
   }
@@ -4311,6 +4315,132 @@ async function viewPessoa(personId) {
   }
 }
 
+// ─── Genre Page ──────────────────────────────────────────────
+async function viewGenero(genreId, mediaType = "movie") {
+  const isTV = mediaType === "tv";
+  const genreList = isTV ? DISCOVER_TV_GENRES : DISCOVER_GENRES;
+  const genre = genreList.find((g) => String(g.id) === String(genreId));
+  const genreName = genre?.name || "Género";
+
+  appContent.innerHTML = "";
+
+  // Banner
+  const banner = document.createElement("div");
+  banner.className = "genre-banner";
+  banner.innerHTML = `
+    <div class="genre-banner-inner">
+      <div class="genre-banner-type">
+        <button class="genre-type-btn${!isTV ? " is-active" : ""}" data-type="movie">Filmes</button>
+        <button class="genre-type-btn${isTV ? " is-active" : ""}" data-type="tv">Séries</button>
+      </div>
+      <h1 class="genre-banner-title">${escapeHtml(genreName)}</h1>
+      <div class="genre-banner-pills">
+        ${genreList.filter(g => g.id).map(g => `
+          <a class="genre-pill${String(g.id) === String(genreId) ? " is-active" : ""}"
+             href="#/genero/${g.id}/${mediaType}">${escapeHtml(g.name)}</a>
+        `).join("")}
+      </div>
+    </div>
+  `;
+  appContent.appendChild(banner);
+
+  // Sort controls
+  const controls = document.createElement("div");
+  controls.className = "genre-controls";
+  controls.innerHTML = `
+    <div class="genre-controls-inner">
+      <select id="genreSort" class="filter-select">
+        <option value="popularity.desc">Mais populares</option>
+        <option value="vote_average.desc">Melhor avaliados</option>
+        <option value="primary_release_date.desc">Mais recentes</option>
+        <option value="revenue.desc">Mais vistos</option>
+      </select>
+      <select id="genreYear" class="filter-select">
+        <option value="">Todos os anos</option>
+        ${Array.from({length: 30}, (_, i) => new Date().getFullYear() - i).map(y => `<option value="${y}">${y}</option>`).join("")}
+      </select>
+    </div>
+  `;
+  appContent.appendChild(controls);
+
+  const resultsEl = document.createElement("div");
+  resultsEl.className = "genre-page-results";
+  appContent.appendChild(resultsEl);
+
+  let currentPage = 1;
+  let totalPages = 1;
+
+  async function loadGenreMovies(page = 1) {
+    if (page === 1) resultsEl.innerHTML = renderSpinner();
+    try {
+      const sort = document.getElementById("genreSort")?.value || "popularity.desc";
+      const year = document.getElementById("genreYear")?.value || "";
+      const lang = encodeURIComponent(getLanguage());
+      const params = new URLSearchParams({
+        language: getLanguage(),
+        with_genres: genreId,
+        sort_by: sort,
+        page: String(page),
+        "vote_count.gte": "50"
+      });
+      if (year) params.set(isTV ? "first_air_date_year" : "primary_release_year", year);
+      const endpoint = isTV ? "tv" : "movie";
+      const data = await fetchJson(`/api/discover?${params.toString()}&media_type=${endpoint}`);
+
+      currentPage = Number(data.page) || page;
+      totalPages = Number(data.total_pages) || 1;
+
+      if (page === 1) {
+        resultsEl.innerHTML = "";
+        const grid = document.createElement("div");
+        grid.className = "genre-grid catalog-section";
+        grid.id = "genreGrid";
+        resultsEl.appendChild(grid);
+      }
+      const grid = document.getElementById("genreGrid") || resultsEl.querySelector(".genre-grid");
+      renderMovieCards(grid, data.results || []);
+      initSectionAnimations();
+
+      // Infinite scroll
+      resultsEl.querySelector(".infinite-sentinel")?.remove();
+      if (currentPage < totalPages) {
+        const sentinel = document.createElement("div");
+        sentinel.className = "infinite-sentinel";
+        sentinel.innerHTML = `<div class="infinite-loading"><span class="infinite-spinner"></span></div>`;
+        resultsEl.appendChild(sentinel);
+        const obs = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) { obs.disconnect(); loadGenreMovies(currentPage + 1); }
+        }, { rootMargin: "200px" });
+        obs.observe(sentinel);
+      }
+    } catch (err) {
+      if (page === 1) resultsEl.innerHTML = errorState(err.message);
+    }
+  }
+
+  // Type toggle
+  banner.querySelectorAll(".genre-type-btn").forEach(btn => {
+    btn.addEventListener("click", () => navigateTo(`/genero/${genreId}/${btn.dataset.type}`));
+  });
+
+  // Sort/year change
+  controls.querySelectorAll("select").forEach(sel => {
+    sel.addEventListener("change", () => loadGenreMovies(1));
+  });
+
+  // Fetch backdrop for banner from first popular movie
+  fetchJson(`/api/discover?with_genres=${genreId}&sort_by=popularity.desc&page=1&language=${encodeURIComponent(getLanguage())}&vote_count.gte=200`)
+    .then(data => {
+      const movie = data.results?.find(m => m.backdrop_path);
+      if (movie) {
+        banner.style.backgroundImage = `url("${IMAGE_BASE_URL}${movie.backdrop_path}")`;
+        banner.classList.add("has-backdrop");
+      }
+    }).catch(() => {});
+
+  await loadGenreMovies(1);
+}
+
 async function viewHomeEditor() {
   appContent.innerHTML = "";
   appContent.appendChild(pageHeader("Editor de homepage"));
@@ -4898,7 +5028,14 @@ function renderHero(movie, animate = false) {
   const heroGenres = document.getElementById("heroGenres");
   if (heroGenres && Array.isArray(movie.genres) && movie.genres.length) {
     heroGenres.innerHTML = movie.genres.slice(0, 4)
-      .map((g) => `<span class="hero-genre-tag">${escapeHtml(g)}</span>`)
+      .map((g) => {
+        const allGenres = [...DISCOVER_GENRES, ...DISCOVER_TV_GENRES];
+        const found = allGenres.find(dg => dg.name.toLowerCase() === g.toLowerCase());
+        const mediaT = getMediaType(movie) === "tv" ? "tv" : "movie";
+        return found
+          ? `<a class="hero-genre-tag" href="#/genero/${found.id}/${mediaT}">${escapeHtml(g)}</a>`
+          : `<span class="hero-genre-tag">${escapeHtml(g)}</span>`;
+      })
       .join("");
     heroGenres.classList.remove("hidden");
   } else if (heroGenres) {
@@ -4923,6 +5060,7 @@ function renderHero(movie, animate = false) {
     requestAnimationFrame(() => heroContent.classList.remove("is-refreshing"));
   }
 }
+
 
 // ─── Hero Rotation ────────────────────────────────────────────
 let heroRotationInterval = null;
@@ -4974,7 +5112,6 @@ function goToHeroSlide(index) {
   const movie = heroRotationList[index];
   featuredMovie = movie;
   renderHero(movie, true);
-
   // Update active dot
   document.querySelectorAll(".hero-dot").forEach((dot, i) => {
     dot.classList.toggle("is-active", i === index);
@@ -5489,7 +5626,14 @@ async function renderDetailContent(mediaRef) {
     const detailMobileHeader = document.getElementById("detailMobileHeader");
     if (detailMobileHeader && document.body.classList.contains("mobile-ui")) {
       const genres = Array.isArray(selectedMovie.genres) ? selectedMovie.genres : [];
-      const genreHtml = genres.slice(0, 3).map(g => `<span class="detail-mobile-genre">${escapeHtml(g)}</span>`).join("");
+      const _mMediaT = (selectedMovie.media_type === "tv" || selectedMovie.first_air_date) ? "tv" : "movie";
+      const _mGenreList = _mMediaT === "tv" ? DISCOVER_TV_GENRES : DISCOVER_GENRES;
+      const genreHtml = genres.slice(0, 3).map(g => {
+        const found = _mGenreList.find(x => x.name.toLowerCase() === String(g).toLowerCase());
+        return found
+          ? `<a class="detail-mobile-genre genre-tag" href="#/genero/${found.id}/${_mMediaT}">${escapeHtml(g)}</a>`
+          : `<span class="detail-mobile-genre">${escapeHtml(g)}</span>`;
+      }).join("");
       const runtime = selectedMovie.runtime
         ? `${Math.floor(selectedMovie.runtime / 60)}h ${selectedMovie.runtime % 60}min`
         : "";
@@ -6735,8 +6879,16 @@ function buildMetaHtml(movie, includeGenres = false) {
     chips.push(`<span class="chip">${escapeHtml(String(movie.original_language).toUpperCase())}</span>`);
 
   // Genres (detail view)
-  if (includeGenres && Array.isArray(movie.genres))
-    movie.genres.slice(0, 3).forEach((g) => chips.push(`<span class="chip">${escapeHtml(g)}</span>`));
+  if (includeGenres && Array.isArray(movie.genres)) {
+    const _mediaT = (movie.media_type === "tv" || movie.first_air_date) ? "tv" : "movie";
+    const _genreList = _mediaT === "tv" ? DISCOVER_TV_GENRES : DISCOVER_GENRES;
+    movie.genres.slice(0, 3).forEach((g) => {
+      const found = _genreList.find(x => x.name.toLowerCase() === String(g).toLowerCase());
+      chips.push(found
+        ? `<a class="chip genre-tag" href="#/genero/${found.id}/${_mediaT}">${escapeHtml(g)}</a>`
+        : `<span class="chip">${escapeHtml(g)}</span>`);
+    });
+  }
 
   // Remove trailing dot
   if (chips.length && chips[chips.length - 1].includes("chip-dot")) chips.pop();
@@ -6873,19 +7025,6 @@ if (detailMobileBookmarkBtn) {
   });
 }
 
-// Mute button (visual toggle — hero has no real audio, just a UI affordance)
-const heroMuteBtn = document.getElementById("heroMuteBtn");
-const heroVolumeIcon = document.getElementById("heroVolumeIcon");
-let heroMuted = true;
-if (heroMuteBtn && heroVolumeIcon) {
-  heroMuteBtn.addEventListener("click", () => {
-    heroMuted = !heroMuted;
-    heroVolumeIcon.innerHTML = heroMuted
-      ? `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>`
-      : `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>`;
-    heroMuteBtn.title = heroMuted ? "Ativar som" : "Desativar som";
-  });
-}
 
 // Hub logo items — click searches by studio
 document.querySelectorAll(".hub-item[data-hub]").forEach((btn) => {
